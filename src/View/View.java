@@ -1,5 +1,6 @@
 package View;
 
+import Controller.SummaryTool;
 import javax.swing.JOptionPane;
 
 /**
@@ -8,6 +9,7 @@ import javax.swing.JOptionPane;
  */
 public class View extends javax.swing.JFrame {
 
+    SummaryTool summary = new SummaryTool();
 
     public View() {
         initComponents();
@@ -23,7 +25,7 @@ public class View extends javax.swing.JFrame {
 //            jTabbedPaneHead.setEnabledAt(3, false);
 //            jTabbedPaneHead.setEnabledAt(4, false);
 //        }
-      
+
         if (selectedIndex == 1) {
             int answer = JOptionPane.showConfirmDialog(null, "Do you really want to Exit?", "ITS V.1.0", JOptionPane.YES_NO_OPTION);
             if (answer == 0) {            //yes=0   No=1
@@ -79,6 +81,11 @@ public class View extends javax.swing.JFrame {
         btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SignupPressed.png"))); // NOI18N
         btnSummerize.setBorder(null);
         btnSummerize.setContentAreaFilled(false);
+        btnSummerize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSummerizeActionPerformed(evt);
+            }
+        });
         jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 50, 30));
 
         txtAreaInputDocument.setColumns(20);
@@ -134,7 +141,23 @@ public class View extends javax.swing.JFrame {
         switchScreens();
     }//GEN-LAST:event_jTabbedPaneHeadMouseClicked
 
-   
+    private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
+        summary.init();
+        summary.extractSentenceFromContext();
+        summary.groupSentencesIntoParagraphs();
+        summary.createIntersectionMatrix();
+        summary.createDictionary();
+        System.out.println("SUMMMARY");
+        summary.createSummary();
+        summary.printSummary();
+        summary.printStats();
+
+        //summary.printSentences();
+        //System.out.println("INTERSECTION MATRIX");
+        //summary.printIntersectionMatrix();
+        //summary.printDicationary();
+    }//GEN-LAST:event_btnSummerizeActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

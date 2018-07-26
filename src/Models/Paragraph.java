@@ -12,10 +12,10 @@ package Models;
 import java.util.ArrayList;
 
 public class Paragraph{
-	int number;
-	ArrayList<Sentence> sentences;
+	public int number;
+	public ArrayList<Sentence> sentences;
 
-	Paragraph(int number){
+	public Paragraph(int number){
 		this.number = number;
 		sentences = new ArrayList<Sentence>();
 	}

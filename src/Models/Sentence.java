@@ -10,14 +10,14 @@ package Models;
  * @author Oshin
  */
 public class Sentence{
-	int paragraphNumber;
-	int number;
-	int stringLength; //Dont need this 
-	double score;
-	int noOfWords;
-	String value;
+	public int paragraphNumber;
+	public int number;
+	public int stringLength; //Dont need this 
+	public double score;
+	public int noOfWords;
+	public String value;
 
-	Sentence(int number, String value, int stringLength, int paragraphNumber){
+	public Sentence(int number, String value, int stringLength, int paragraphNumber){
 		this.number = number;
 		this.value = new String(value);
 		this.stringLength = stringLength;
