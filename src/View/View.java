@@ -69,7 +69,6 @@ public class View extends javax.swing.JFrame {
         lblNoOfParagraphsInSummary = new javax.swing.JLabel();
         lblNoOfWordsSummary = new javax.swing.JLabel();
         jPanelExit = new javax.swing.JPanel();
-        jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(32, 33, 35));
@@ -177,12 +176,6 @@ public class View extends javax.swing.JFrame {
 
         jPanelExit.setBackground(new java.awt.Color(32, 33, 35));
         jPanelExit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel24.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel24.setText("Traffic Monitor");
-        jPanelExit.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 200, -1));
-
         jTabbedPaneHead.addTab("", new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png")), jPanelExit); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,12 +209,18 @@ public class View extends javax.swing.JFrame {
         summary.createSummary();
         summary.printSummary();
         summary.printStats();
-        
+        //lblNoOfParagraphsInSummary.setText();
 
         //summary.printSentences();
         //System.out.println("INTERSECTION MATRIX");
         //summary.printIntersectionMatrix();
         //summary.printDicationary();
+        
+        
+        
+        
+        
+        jTabbedPaneSub.setSelectedIndex(1);
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
     public static void main(String args[]) {
@@ -274,7 +273,6 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSummerize;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;

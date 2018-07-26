@@ -212,12 +212,10 @@ public class SummaryTool {
 //	      }
 //	}
     public void printSummary() {
-        //View V=new View();
-        // V.txtAreaOutputDocument.setText("Gcdcadfc");
+        
         System.out.println("no of paragraphs = " + noOfParagraphs);
         for (Sentence sentence : contentSummary) {
             System.out.println(sentence.value);
-            return;
         }
     }
 
