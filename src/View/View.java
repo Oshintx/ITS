@@ -49,13 +49,13 @@ public class View extends javax.swing.JFrame {
         jTabbedPaneHead = new javax.swing.JTabbedPane();
         jTabbedPaneSub = new javax.swing.JTabbedPane();
         jPanelWelcome = new javax.swing.JPanel();
-        btnRoleUser = new javax.swing.JButton();
+        btnSummerize = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        txtAreaInputDocument = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtAreaOutputDocument = new javax.swing.JTextArea();
         jPanelExit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,103 +74,59 @@ public class View extends javax.swing.JFrame {
 
         jPanelWelcome.setBackground(new java.awt.Color(32, 33, 35));
         jPanelWelcome.setVerifyInputWhenFocusTarget(false);
+        jPanelWelcome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnRoleUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SignupPressed.png"))); // NOI18N
-        btnRoleUser.setBorder(null);
-        btnRoleUser.setContentAreaFilled(false);
+        btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SignupPressed.png"))); // NOI18N
+        btnSummerize.setBorder(null);
+        btnSummerize.setContentAreaFilled(false);
+        jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 50, 30));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtAreaInputDocument.setColumns(20);
+        txtAreaInputDocument.setRows(5);
+        jScrollPane1.setViewportView(txtAreaInputDocument);
+
+        jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 930, 280));
 
         jLabel6.setBackground(new java.awt.Color(255, 255, 255));
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("BOT Predicted Intent: ");
-
-        javax.swing.GroupLayout jPanelWelcomeLayout = new javax.swing.GroupLayout(jPanelWelcome);
-        jPanelWelcome.setLayout(jPanelWelcomeLayout);
-        jPanelWelcomeLayout.setHorizontalGroup(
-            jPanelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelWelcomeLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelWelcomeLayout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel6))
-                    .addComponent(btnRoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        );
-        jPanelWelcomeLayout.setVerticalGroup(
-            jPanelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelWelcomeLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(jPanelWelcomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanelWelcomeLayout.createSequentialGroup()
-                        .addGap(90, 90, 90)
-                        .addComponent(jLabel6)))
-                .addGap(30, 30, 30)
-                .addComponent(btnRoleUser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanelWelcome.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
         jTabbedPaneSub.addTab("                                          Input                                          ", jPanelWelcome);
 
         jPanel1.setBackground(new java.awt.Color(32, 33, 35));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        txtAreaOutputDocument.setEditable(false);
+        txtAreaOutputDocument.setColumns(20);
+        txtAreaOutputDocument.setRows(5);
+        jScrollPane2.setViewportView(txtAreaOutputDocument);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 930, 280));
 
         jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
 
         jTabbedPaneHead.addTab("                                            Intelligent Text Summarizer                                      ", jTabbedPaneSub);
 
         jPanelExit.setBackground(new java.awt.Color(32, 33, 35));
-
-        javax.swing.GroupLayout jPanelExitLayout = new javax.swing.GroupLayout(jPanelExit);
-        jPanelExit.setLayout(jPanelExitLayout);
-        jPanelExitLayout.setHorizontalGroup(
-            jPanelExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 978, Short.MAX_VALUE)
-        );
-        jPanelExitLayout.setVerticalGroup(
-            jPanelExitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
-        );
-
+        jPanelExit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPaneHead.addTab("", new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png")), jPanelExit); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
         );
 
         jTabbedPaneHead.getAccessibleContext().setAccessibleName("     Me     ");
 
-        setSize(new java.awt.Dimension(973, 585));
+        setSize(new java.awt.Dimension(976, 585));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -227,7 +183,7 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRoleUser;
+    private javax.swing.JButton btnSummerize;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelExit;
@@ -236,9 +192,9 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.ButtonGroup radGrpGender;
+    private javax.swing.JTextArea txtAreaInputDocument;
+    private javax.swing.JTextArea txtAreaOutputDocument;
     // End of variables declaration//GEN-END:variables
 
 }
