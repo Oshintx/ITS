@@ -121,12 +121,12 @@ public class View extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
         );
 
         jTabbedPaneHead.getAccessibleContext().setAccessibleName("     Me     ");
 
-        setSize(new java.awt.Dimension(976, 585));
+        setSize(new java.awt.Dimension(976, 543));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
