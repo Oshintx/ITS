@@ -5,8 +5,6 @@
  */
 package Models;
 
-import its.*;
-
 /**
  *
  * @author Oshin

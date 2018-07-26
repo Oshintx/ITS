@@ -9,7 +9,7 @@ package Controller;
  *
  * @author Oshin
  */
-import its.*;
+import app.Sentence;
 import java.util.Comparator;
 
 class SentenceComparatorForSummary  implements Comparator<Sentence>{

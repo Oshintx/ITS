@@ -9,7 +9,8 @@ package Controller;
  *
  * @author Oshin
  */
-import its.*;
+import app.Sentence;
+import app.Paragraph;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
