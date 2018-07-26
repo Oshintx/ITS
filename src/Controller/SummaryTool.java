@@ -11,6 +11,7 @@ package Controller;
  */
 import Models.Sentence;
 import Models.Paragraph;
+import View.View;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -42,6 +43,8 @@ public class SummaryTool {
         noOfSentences = 0;
         noOfParagraphs = 0;
         try {
+//          String originalContext;
+//          originalContext=v.txtAreaInputDocument.getText();
             in = new FileInputStream("samples/amazon/nexus_6p");
             out = new FileOutputStream("output.txt");
         } catch (FileNotFoundException e) {
@@ -209,9 +212,12 @@ public class SummaryTool {
 //	      }
 //	}
     public void printSummary() {
+        //View V=new View();
+        // V.txtAreaOutputDocument.setText("Gcdcadfc");
         System.out.println("no of paragraphs = " + noOfParagraphs);
         for (Sentence sentence : contentSummary) {
             System.out.println(sentence.value);
+            return;
         }
     }
 

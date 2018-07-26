@@ -58,7 +58,18 @@ public class View extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        lblCompressionRatio = new javax.swing.JLabel();
+        lblNoOfWordsInContext = new javax.swing.JLabel();
+        lblNoOfParagraphsInSummary = new javax.swing.JLabel();
+        lblNoOfWordsSummary = new javax.swing.JLabel();
         jPanelExit = new javax.swing.JPanel();
+        jLabel24 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(32, 33, 35));
@@ -78,15 +89,17 @@ public class View extends javax.swing.JFrame {
         jPanelWelcome.setVerifyInputWhenFocusTarget(false);
         jPanelWelcome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/SignupPressed.png"))); // NOI18N
+        btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/school-material (1).png"))); // NOI18N
         btnSummerize.setBorder(null);
         btnSummerize.setContentAreaFilled(false);
+        btnSummerize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
+        btnSummerize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/write.png"))); // NOI18N
         btnSummerize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSummerizeActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 50, 30));
+        jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, 100, 70));
 
         txtAreaInputDocument.setColumns(20);
         txtAreaInputDocument.setRows(5);
@@ -112,12 +125,64 @@ public class View extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 930, 280));
 
+        jLabel23.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setText("Traffic Monitor");
+        jPanel1.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 200, -1));
+
+        jLabel25.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setText("Commpression Ratio :");
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 160, -1));
+
+        jLabel26.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel26.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel26.setText("Number of words in Context(Input Document) :");
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 340, -1));
+
+        jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel27.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setText("Number of  Paragraphs in Context :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 260, -1));
+
+        jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel28.setText("Number of words in Summary(Output) :");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 290, -1));
+
+        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel29.setText("Number of  Paragraphs in Summary :");
+        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, 260, -1));
+
+        lblCompressionRatio.setForeground(new java.awt.Color(204, 0, 0));
+        lblCompressionRatio.setText("..");
+        jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 20, -1));
+
+        lblNoOfWordsInContext.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfWordsInContext.setText("..");
+        jPanel1.add(lblNoOfWordsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 20, -1));
+
+        lblNoOfParagraphsInSummary.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfParagraphsInSummary.setText("..");
+        jPanel1.add(lblNoOfParagraphsInSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 390, 20, -1));
+
+        lblNoOfWordsSummary.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfWordsSummary.setText("..");
+        jPanel1.add(lblNoOfWordsSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 20, -1));
+
         jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
 
         jTabbedPaneHead.addTab("                                            Intelligent Text Summarizer                                      ", jTabbedPaneSub);
 
         jPanelExit.setBackground(new java.awt.Color(32, 33, 35));
         jPanelExit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel24.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setText("Traffic Monitor");
+        jPanelExit.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 200, -1));
+
         jTabbedPaneHead.addTab("", new javax.swing.ImageIcon(getClass().getResource("/Images/logout.png")), jPanelExit); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -128,7 +193,7 @@ public class View extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneHead)
         );
 
         jTabbedPaneHead.getAccessibleContext().setAccessibleName("     Me     ");
@@ -151,6 +216,7 @@ public class View extends javax.swing.JFrame {
         summary.createSummary();
         summary.printSummary();
         summary.printStats();
+        
 
         //summary.printSentences();
         //System.out.println("INTERSECTION MATRIX");
@@ -207,6 +273,13 @@ public class View extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSummerize;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelExit;
@@ -215,6 +288,10 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
+    private javax.swing.JLabel lblCompressionRatio;
+    private javax.swing.JLabel lblNoOfParagraphsInSummary;
+    private javax.swing.JLabel lblNoOfWordsInContext;
+    private javax.swing.JLabel lblNoOfWordsSummary;
     private javax.swing.ButtonGroup radGrpGender;
     private javax.swing.JTextArea txtAreaInputDocument;
     private javax.swing.JTextArea txtAreaOutputDocument;
