@@ -24,8 +24,7 @@ public class ITS {
                 System.out.println("SUMMMARY");
 		summary.createSummary();
 		summary.printSummary();
-
-		summary.printStats();
+                summary.printStats();
             
                 //summary.printSentences();
 		//System.out.println("INTERSECTION MATRIX");
