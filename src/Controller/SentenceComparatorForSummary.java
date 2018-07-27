@@ -13,7 +13,13 @@ import Models.Sentence;
 import java.util.Comparator;
 
 class SentenceComparatorForSummary  implements Comparator<Sentence>{
-	@Override
+	/**
+         * SentenceComparatorForSummary used to compare two sentence base on its Sentence Number
+         * @param obj1
+         * @param obj2
+         * @return 
+         */
+        @Override
 	public int compare(Sentence obj1, Sentence obj2) {
 		if(obj1.getNumber() > obj2.getNumber()){
 			return 1;

@@ -12,9 +12,9 @@ package Controller;
 import Models.Sentence;
 import java.util.Comparator;
 
-public class SentenceComparator  implements Comparator<Sentence>{
+public class SentenceComparatorOnScore  implements Comparator<Sentence>{
     /**
-     * SentenceComparator used to compare two sentence
+     * SentenceComparatorOnScore used to compare two sentence base on its score
      * @param obj1
      * @param obj2
      * @return 

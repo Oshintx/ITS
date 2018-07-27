@@ -177,7 +177,7 @@ public class Algorithm {
             int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
             //  System.out.println(primary_set);
             //Sort based on score (importance)
-            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparator());//sort here according to the score of a sentence(SentenceComparator has a compare to do this)
+            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
             for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
                 getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
             }
