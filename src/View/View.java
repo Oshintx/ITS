@@ -1,6 +1,10 @@
 package View;
 
 import Controller.Algorithm;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import javax.swing.JOptionPane;
 
 /**
@@ -247,13 +251,21 @@ public class View extends javax.swing.JFrame {
         summary.setCommpression();
         lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
         
-        //summary.printSentences();
-        //System.out.println("INTERSECTION MATRIX");
-        //summary.printIntersectionMatrix();
-        //summary.printDicationary();
-        
-       
-        
+      
+      
+		try {
+
+			File file = new File("test1.txt");
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(txtAreaInputDocument.getText());
+			fileWriter.flush();
+			fileWriter.close();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+                }
         
        // summary.init();
        // summary.extractSentenceFromContext();

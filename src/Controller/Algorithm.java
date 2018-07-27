@@ -19,7 +19,7 @@ import java.util.Collections;
 
 public class Algorithm {
 
-   
+   Writer writer = null;
     private FileInputStream in;
     private FileOutputStream out;
     private ArrayList<Sentence> sentences;
@@ -37,6 +37,13 @@ public class Algorithm {
         this.out = null;
         this.noOfSentences = 0;
         this.noOfParagraphs = 0;
+        
+        try {
+            
+        } catch (Exception e) {
+        }
+        
+        
     }
 
     public void init() {
@@ -47,9 +54,12 @@ public class Algorithm {
         setNoOfSentences(0);
         setNoOfParagraphs(0);
         try {
-       
-            setIn(new FileInputStream("samples/amazon/nexus_6p"));
-            setOut(new FileOutputStream("output.txt"));
+            
+            
+            
+            
+            
+            setIn(new FileInputStream("test1.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
