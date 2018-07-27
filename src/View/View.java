@@ -227,19 +227,23 @@ public class View extends javax.swing.JFrame {
 
     private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
       
+        
         summary.init();
         summary.extractSentenceFromContext();
-        
+        lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
+        lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs()+1));
+        lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
+        /////
        // summary.groupSentencesIntoParagraphs();
-        //summary.createIntersectionMatrix();
-        //summary.createDictionary();
-        //System.out.println("SUMMMARY");
-        //summary.createSummary();
-        //summary.printSummary();
-       // summary.printStats();
-        lblNoOfParagraphsInSummary.setText(Integer.toString(summary.getNoOfParagraphs()));
+       // summary.createIntersectionMatrix();
+       // summary.createDictionary();
+       System.out.println("SUMMMARY");
+      // summary.createSummary();
+      // summary.printSummary();
+      // summary.printStats();
+       ///
         txtAreaOutputDocument.setText(summary.getFinalSummery());
-       // lblCompressionRatio.setText();
+     
         //summary.printSentences();
         //System.out.println("INTERSECTION MATRIX");
         //summary.printIntersectionMatrix();
