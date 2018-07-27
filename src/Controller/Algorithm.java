@@ -18,6 +18,8 @@ import java.util.LinkedHashMap;
 import java.util.Collections;
 
 public class Algorithm {
+
+   
     private FileInputStream in;
     private FileOutputStream out;
     private ArrayList<Sentence> sentences;
@@ -28,7 +30,7 @@ public class Algorithm {
     private int  noOfParagraphs;
     private double[][] intersectionMatrix;
     private LinkedHashMap<Sentence, Double> dictionary;
-    
+    private double Commpression;
     
     public Algorithm() {
         this.in = null;
@@ -40,7 +42,7 @@ public class Algorithm {
     public void init() {
         setSentences(new ArrayList<Sentence>());
         setParagraphs(new ArrayList<Paragraph>());
-        setContentSummary(new ArrayList<Sentence>());//this array list contain sentences 
+        setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
         setDictionary(new LinkedHashMap<Sentence, Double>());
         setNoOfSentences(0);
         setNoOfParagraphs(0);
@@ -55,32 +57,30 @@ public class Algorithm {
         }
     }
 
-    /*Gets the sentences from the entire passage*/
-    public void extractSentenceFromContext() { //this extract sentences from the document and creates a sentence object and it will store in a sentence type array list name call sentences
+    /*Extract sentences from the entire passage*/
+    public void extractSentenceFromContext() { 
         int nextChar, j = 0;
         int prevChar = -1;
         try {
-            while ((nextChar = getIn().read()) != -1) {                          // The java.io.InputStream.read() method reads the next byte of the data from the the input stream and returns int in the range of 0 to 255.
-                //   If no byte is available because the end of the stream has been reached, the returned value is -1.
+            while ((nextChar = getIn().read()) != -1) {                         
                 j = 0;
                 char[] temp = new char[100000];
                 while ((char) nextChar != '.') {
-                    //System.out.println(nextChar + " ");
                     temp[j] = (char) nextChar;
 
-                    if ((nextChar = getIn().read()) == -1) {//here for nextChar assign the next char charcter value(ascy-bytes between 0-255) and need to check whether in.read() return -1(which means end of the file) and if it is need to break.other wise if the last sentence is not contain pull stop this loop will go continuesly and will prompt to an error.
+                    if ((nextChar = getIn().read()) == -1) {
                         break;
                     }
-                    if ((char) nextChar == '\n' && (char) prevChar == '\n') {//here checks whether nextchar and prev char both are two lines(empty lines)-if the text body is seperate with two lines(empty lines(two \n )) consider as 1 paragraph
-                        setNoOfParagraphs(getNoOfParagraphs() + 1);//here paragraphNo of considering =noOfParagraphs
+                    if ((char) nextChar == '\n' && (char) prevChar == '\n') { 
+                        setNoOfParagraphs(getNoOfParagraphs() + 1);
                     }
 
                     j++;
                     prevChar = nextChar;
                 }
                 getSentences().add(new Sentence(getNoOfSentences(), (new String(temp)).trim(), (new String(temp)).trim().length(), getNoOfParagraphs()));//here noOfSentences=sentence No
-                setNoOfSentences(getNoOfSentences() + 1);//here this is mention noOfSentences
-                prevChar = nextChar;//This is need to be here cause if there was a break prevcahr must be equal to nextchar
+                setNoOfSentences(getNoOfSentences() + 1);
+                prevChar = nextChar;
             }
               
         } catch (Exception e) {
@@ -225,7 +225,7 @@ public class Algorithm {
 
     public double getWordCount(ArrayList<Sentence> sentenceList) {//here find the total no of words in the summery
         double wordCount = 0.0;
-        for (Sentence sentence : getSentences()) {
+        for (Sentence sentence : sentenceList) {
             wordCount += sentence.getNoOfWords();
         }
         return wordCount;
@@ -377,5 +377,20 @@ public class Algorithm {
      */
     public void setFinalSummery(String finalSummery) {
         this.finalSummery = finalSummery;
+    }
+ /**
+     * @return the Commpression
+     */
+    public double getCommpression() {
+        return Commpression;
+    }
+
+    /**
+     * @param Commpression the Commpression to set
+     */
+    public void setCommpression() {
+        
+        this.Commpression= (getWordCount(getContentSummary()) / getWordCount(getSentences()));
+    
     }
 }

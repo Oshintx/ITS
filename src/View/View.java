@@ -169,19 +169,19 @@ public class View extends javax.swing.JFrame {
 
         lblCompressionRatio.setForeground(new java.awt.Color(204, 0, 0));
         lblCompressionRatio.setText("..");
-        jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 20, -1));
+        jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 170, -1));
 
         lblNoOfParagraphsInContext.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfParagraphsInContext.setText("..");
-        jPanel1.add(lblNoOfParagraphsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 20, -1));
+        jPanel1.add(lblNoOfParagraphsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 90, -1));
 
         lblNoOfParagraphsInSummary.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfParagraphsInSummary.setText("..");
-        jPanel1.add(lblNoOfParagraphsInSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 390, 20, -1));
+        jPanel1.add(lblNoOfParagraphsInSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 390, 120, -1));
 
         lblNoOfWordsSummary.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfWordsSummary.setText("..");
-        jPanel1.add(lblNoOfWordsSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 20, -1));
+        jPanel1.add(lblNoOfWordsSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 120, -1));
 
         jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel30.setForeground(new java.awt.Color(255, 255, 255));
@@ -190,11 +190,11 @@ public class View extends javax.swing.JFrame {
 
         lblNoOfWordsInContext1.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfWordsInContext1.setText("..");
-        jPanel1.add(lblNoOfWordsInContext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 20, -1));
+        jPanel1.add(lblNoOfWordsInContext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 110, -1));
 
         lblNoOfSentencesInContext.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfSentencesInContext.setText("..");
-        jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 20, -1));
+        jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, -1));
 
         jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
 
@@ -208,7 +208,7 @@ public class View extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPaneHead, javax.swing.GroupLayout.DEFAULT_SIZE, 976, Short.MAX_VALUE)
+            .addComponent(jTabbedPaneHead)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,29 +227,50 @@ public class View extends javax.swing.JFrame {
 
     private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
       
-        
         summary.init();
         summary.extractSentenceFromContext();
         lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
         lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs()+1));
         lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
+
         /////
-       // summary.groupSentencesIntoParagraphs();
-       // summary.createIntersectionMatrix();
-       // summary.createDictionary();
-       System.out.println("SUMMMARY");
-      // summary.createSummary();
-      // summary.printSummary();
-      // summary.printStats();
-       ///
+        summary.groupSentencesIntoParagraphs();
+        summary.createIntersectionMatrix();
+        summary.createDictionary();
+        System.out.println("SUMMMARY");
+        summary.createSummary();
+        summary.printSummary();
+        summary.printStats();
+
         txtAreaOutputDocument.setText(summary.getFinalSummery());
-     
+        lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
+        summary.setCommpression();
+        lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
+        
         //summary.printSentences();
         //System.out.println("INTERSECTION MATRIX");
         //summary.printIntersectionMatrix();
         //summary.printDicationary();
         
        
+        
+        
+       // summary.init();
+       // summary.extractSentenceFromContext();
+       //summary.groupSentencesIntoParagraphs();
+       // summary.createIntersectionMatrix();
+       // summary.createDictionary();
+       // System.out.println("SUMMMARY");
+       // summary.createSummary();
+       // summary.printSummary();
+       // summary.printStats();
+       //summary.printSentences();
+       //System.out.println("INTERSECTION MATRIX");
+       //summary.printIntersectionMatrix();
+       //summary.printDicationary();
+        
+        
+        
         jTabbedPaneSub.setSelectedIndex(1);
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
