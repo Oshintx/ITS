@@ -1,6 +1,10 @@
 package View;
 
 import Controller.SummaryTool;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,6 +42,16 @@ public class View extends javax.swing.JFrame {
         }
     }
 
+    
+//    public void writeOriginalDocumentToFile() {
+//        try {
+//            FileOutputStream out = new FileOutputStream(new File("originalText.txt"));
+//            out.write(txtAreaInputDocument.getText());
+//        } catch (FileNotFoundException e) {
+//            System.out.println(e);
+//        }
+//    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -200,6 +214,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPaneHeadMouseClicked
 
     private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
+      
         summary.init();
         summary.extractSentenceFromContext();
         summary.groupSentencesIntoParagraphs();
@@ -209,17 +224,15 @@ public class View extends javax.swing.JFrame {
         summary.createSummary();
         summary.printSummary();
         summary.printStats();
-        //lblNoOfParagraphsInSummary.setText();
-
+        lblNoOfParagraphsInSummary.setText(Integer.toString(summary.getNoOfParagraphs()));
+        txtAreaOutputDocument.setText(summary.getFinalSummery());
+       // lblCompressionRatio.setText();
         //summary.printSentences();
         //System.out.println("INTERSECTION MATRIX");
         //summary.printIntersectionMatrix();
         //summary.printDicationary();
         
-        
-        
-        
-        
+       
         jTabbedPaneSub.setSelectedIndex(1);
     }//GEN-LAST:event_btnSummerizeActionPerformed
 

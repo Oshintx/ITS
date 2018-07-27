@@ -19,15 +19,20 @@ import java.util.Collections;
 
 public class SummaryTool {
 
-    FileInputStream in;
-    FileOutputStream out;
-    public ArrayList<Sentence> sentences, contentSummary;
-    public ArrayList<Paragraph> paragraphs;
-    public int noOfSentences, noOfParagraphs;
+   
 
-    public double[][] intersectionMatrix;
-    public LinkedHashMap<Sentence, Double> dictionary;
 
+    private FileInputStream in;
+    private FileOutputStream out;
+    private ArrayList<Sentence> sentences;
+    private ArrayList<Sentence> contentSummary;
+    private String finalSummery;
+    private ArrayList<Paragraph> paragraphs;
+    private int noOfSentences;
+    private int  noOfParagraphs;
+    private double[][] intersectionMatrix;
+    private LinkedHashMap<Sentence, Double> dictionary;
+    
     public SummaryTool() {
         in = null;
         out = null;
@@ -36,17 +41,17 @@ public class SummaryTool {
     }
 
     public void init() {
-        sentences = new ArrayList<Sentence>();
-        paragraphs = new ArrayList<Paragraph>();
-        contentSummary = new ArrayList<Sentence>();//this array list contain sentences 
-        dictionary = new LinkedHashMap<Sentence, Double>();
-        noOfSentences = 0;
-        noOfParagraphs = 0;
+        setSentences(new ArrayList<Sentence>());
+        setParagraphs(new ArrayList<Paragraph>());
+        setContentSummary(new ArrayList<Sentence>());//this array list contain sentences 
+        setDictionary(new LinkedHashMap<Sentence, Double>());
+        setNoOfSentences(0);
+        setNoOfParagraphs(0);
         try {
 //          String originalContext;
 //          originalContext=v.txtAreaInputDocument.getText();
-            in = new FileInputStream("samples/amazon/nexus_6p");
-            out = new FileOutputStream("output.txt");
+            setIn(new FileInputStream("samples/amazon/nexus_6p"));
+            setOut(new FileOutputStream("output.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
@@ -59,7 +64,7 @@ public class SummaryTool {
         int nextChar, j = 0;
         int prevChar = -1;
         try {
-            while ((nextChar = in.read()) != -1) {                          // The java.io.InputStream.read() method reads the next byte of the data from the the input stream and returns int in the range of 0 to 255.
+            while ((nextChar = getIn().read()) != -1) {                          // The java.io.InputStream.read() method reads the next byte of the data from the the input stream and returns int in the range of 0 to 255.
                 //   If no byte is available because the end of the stream has been reached, the returned value is -1.
                 j = 0;
                 char[] temp = new char[100000];
@@ -67,21 +72,21 @@ public class SummaryTool {
                     //System.out.println(nextChar + " ");
                     temp[j] = (char) nextChar;
 
-                    if ((nextChar = in.read()) == -1) {//here for nextChar assign the next char charcter value(ascy-bytes between 0-255) and need to check whether in.read() return -1(which means end of the file) and if it is need to break.other wise if the last sentence is not contain full stop this loop will go continuesly and will prompt to an error.
+                    if ((nextChar = getIn().read()) == -1) {//here for nextChar assign the next char charcter value(ascy-bytes between 0-255) and need to check whether in.read() return -1(which means end of the file) and if it is need to break.other wise if the last sentence is not contain full stop this loop will go continuesly and will prompt to an error.
                         break;
                     }
                     if ((char) nextChar == '\n' && (char) prevChar == '\n') {//here checks whether nextchar and prev char both are two lines(empty lines)-if the text body is seperate with two lines(empty lines(two \n )) consider as 1 paragraph
-                        noOfParagraphs++;//here paragraphNo of considering =noOfParagraphs
+                        setNoOfParagraphs(getNoOfParagraphs() + 1);//here paragraphNo of considering =noOfParagraphs
                     }
 
                     j++;
                     prevChar = nextChar;
                 }
 
-                sentences.add(new Sentence(noOfSentences, (new String(temp)).trim(), (new String(temp)).trim().length(), noOfParagraphs));//here noOfSentences=sentence No
+                getSentences().add(new Sentence(getNoOfSentences(), (new String(temp)).trim(), (new String(temp)).trim().length(), getNoOfParagraphs()));//here noOfSentences=sentence No
 
                 // System.out.println(new Sentence(noOfSentences,(new String(temp)).trim(),(new String(temp)).trim().length(),noOfParagraphs));
-                noOfSentences++;//here this is mention noOfSentences
+                setNoOfSentences(getNoOfSentences() + 1);//here this is mention noOfSentences
                 prevChar = nextChar;
 
             }
@@ -96,21 +101,21 @@ public class SummaryTool {
         int paraNum = 0;
         Paragraph paragraph = new Paragraph(0);
 
-        for (int i = 0; i < noOfSentences; i++) {
-            if (sentences.get(i).paragraphNumber == paraNum) {
+        for (int i = 0; i < getNoOfSentences(); i++) {
+            if (getSentences().get(i).paragraphNumber == paraNum) {
                 //continue
             } else {
-                paragraphs.add(paragraph);
+                getParagraphs().add(paragraph);
                 paraNum++;
                 paragraph = new Paragraph(paraNum);
 
             }
-            paragraph.sentences.add(sentences.get(i));
+            paragraph.sentences.add(getSentences().get(i));
             //System.out.println("paragraph no"+paragraph.number);
 
         }
 
-        paragraphs.add(paragraph);
+        getParagraphs().add(paragraph);
     }
 
     public double noOfCommonWords(Sentence str1, Sentence str2) {
@@ -133,17 +138,17 @@ public class SummaryTool {
     }
 
     public void createIntersectionMatrix() {
-        intersectionMatrix = new double[noOfSentences][noOfSentences];//arr[i][j]
-        for (int i = 0; i < noOfSentences; i++) {
-            for (int j = 0; j < noOfSentences; j++) {
+        setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
+        for (int i = 0; i < getNoOfSentences(); i++) {
+            for (int j = 0; j < getNoOfSentences(); j++) {
 
                 if (i <= j) {
-                    Sentence str1 = sentences.get(i);
-                    Sentence str2 = sentences.get(j);
-                    intersectionMatrix[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.noOfWords + str2.noOfWords) / 2);
+                    Sentence str1 = getSentences().get(i);
+                    Sentence str2 = getSentences().get(j);
+                    getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.noOfWords + str2.noOfWords) / 2);
                     //   System.out.println(intersectionMatrix[i][j]);   
                 } else {
-                    intersectionMatrix[i][j] = intersectionMatrix[j][i];
+                    getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
                     // System.out.println(intersectionMatrix[i][j]);   
                 }
 
@@ -153,15 +158,15 @@ public class SummaryTool {
     }
 
     public void createDictionary() {
-        for (int i = 0; i < noOfSentences; i++) {
+        for (int i = 0; i < getNoOfSentences(); i++) {
             double score = 0;
-            for (int j = 0; j < noOfSentences; j++) {
-                score += intersectionMatrix[i][j];//score=intersectionMatrix[i][j]+score;
+            for (int j = 0; j < getNoOfSentences(); j++) {
+                score += getIntersectionMatrix()[i][j];//score=intersectionMatrix[i][j]+score;
 
             }
             //System.out.println(score);
 
-            dictionary.put(sentences.get(i), score);
+            getDictionary().put(getSentences().get(i), score);
             sentences.get(i).score = score;
             // System.out.println(sentences.get(i).score);
         }
@@ -169,31 +174,31 @@ public class SummaryTool {
 
     public void createSummary() {
 
-        for (int j = 0; j <= noOfParagraphs; j++) {
-            int primary_set = paragraphs.get(j).sentences.size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+        for (int j = 0; j <= getNoOfParagraphs(); j++) {
+            int primary_set = getParagraphs().get(j).sentences.size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
             //  System.out.println(primary_set);
             //Sort based on score (importance)
-            Collections.sort(paragraphs.get(j).sentences, new SentenceComparator());//sort here according to the score of a sentence(SentenceComparator has a compare to do this)
+            Collections.sort(getParagraphs().get(j).sentences, new SentenceComparator());//sort here according to the score of a sentence(SentenceComparator has a compare to do this)
             for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
-                contentSummary.add(paragraphs.get(j).sentences.get(i));
+                getContentSummary().add(getParagraphs().get(j).sentences.get(i));
             }
         }
 
         //To ensure proper ordering (order should be qual to the original context order)
-        Collections.sort(contentSummary, new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
+        Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
 
     }
 
     public void printSentences() {
-        for (Sentence sentence : sentences) {
+        for (Sentence sentence : getSentences()) {
             System.out.println(sentence.number + " => " + sentence.value + " => " + sentence.stringLength + " => " + sentence.noOfWords + " => " + sentence.paragraphNumber);
         }
     }
 
     public void printIntersectionMatrix() {
-        for (int i = 0; i < noOfSentences; i++) {
-            for (int j = 0; j < noOfSentences; j++) {
-                System.out.print(intersectionMatrix[i][j] + "    ");
+        for (int i = 0; i < getNoOfSentences(); i++) {
+            for (int j = 0; j < getNoOfSentences(); j++) {
+                System.out.print(getIntersectionMatrix()[i][j] + "    ");
             }
             System.out.print("\n");
         }
@@ -213,10 +218,14 @@ public class SummaryTool {
 //	}
     public void printSummary() {
         
-        System.out.println("no of paragraphs = " + noOfParagraphs);
-        for (Sentence sentence : contentSummary) {
-            System.out.println(sentence.value);
+        System.out.println("no of paragraphs = " + getNoOfParagraphs());
+        StringBuilder sb = new StringBuilder();
+        for (Sentence sentence : getContentSummary()) {
+            sb.append(sentence.value);
+            sb.append("......!");
+          //  System.out.println(sentence.value);
         }
+        setFinalSummery(sb.toString());
     }
 
     public double getWordCount(ArrayList<Sentence> sentenceList) {//here find the total no of words in the summery
@@ -228,9 +237,150 @@ public class SummaryTool {
     }
 
     public void printStats() {
-        System.out.println("number of words in Context : " + getWordCount(sentences));
-        System.out.println("number of words in Summary : " + getWordCount(contentSummary));
-        System.out.println("Commpression : " + getWordCount(contentSummary) / getWordCount(sentences));
+        System.out.println("number of words in Context : " + getWordCount(getSentences()));
+        System.out.println("number of words in Summary : " + getWordCount(getContentSummary()));
+        System.out.println("Commpression : " + getWordCount(getContentSummary()) / getWordCount(getSentences()));
     }
 
+    
+    
+    /**
+     * @return the in
+     */
+    public FileInputStream getIn() {
+        return in;
+    }
+
+    /**
+     * @param in the in to set
+     */
+    public void setIn(FileInputStream in) {
+        this.in = in;
+    }
+
+    /**
+     * @return the out
+     */
+    public FileOutputStream getOut() {
+        return out;
+    }
+
+    /**
+     * @param out the out to set
+     */
+    public void setOut(FileOutputStream out) {
+        this.out = out;
+    }
+
+    /**
+     * @return the sentences
+     */
+    public ArrayList<Sentence> getSentences() {
+        return sentences;
+    }
+
+    /**
+     * @param sentences the sentences to set
+     */
+    public void setSentences(ArrayList<Sentence> sentences) {
+        this.sentences = sentences;
+    }
+
+    /**
+     * @return the contentSummary
+     */
+    public ArrayList<Sentence> getContentSummary() {
+        return contentSummary;
+    }
+
+    /**
+     * @param contentSummary the contentSummary to set
+     */
+    public void setContentSummary(ArrayList<Sentence> contentSummary) {
+        this.contentSummary = contentSummary;
+    }
+
+    /**
+     * @return the paragraphs
+     */
+    public ArrayList<Paragraph> getParagraphs() {
+        return paragraphs;
+    }
+
+    /**
+     * @param paragraphs the paragraphs to set
+     */
+    public void setParagraphs(ArrayList<Paragraph> paragraphs) {
+        this.paragraphs = paragraphs;
+    }
+
+    /**
+     * @return the noOfSentences
+     */
+    public int getNoOfSentences() {
+        return noOfSentences;
+    }
+
+    /**
+     * @param noOfSentences the noOfSentences to set
+     */
+    public void setNoOfSentences(int noOfSentences) {
+        this.noOfSentences = noOfSentences;
+    }
+
+    /**
+     * @return the noOfParagraphs
+     */
+    public int getNoOfParagraphs() {
+        return noOfParagraphs;
+    }
+
+    /**
+     * @param noOfParagraphs the noOfParagraphs to set
+     */
+    public void setNoOfParagraphs(int noOfParagraphs) {
+        this.noOfParagraphs = noOfParagraphs;
+    }
+
+    /**
+     * @return the intersectionMatrix
+     */
+    public double[][] getIntersectionMatrix() {
+        return intersectionMatrix;
+    }
+
+    /**
+     * @param intersectionMatrix the intersectionMatrix to set
+     */
+    public void setIntersectionMatrix(double[][] intersectionMatrix) {
+        this.intersectionMatrix = intersectionMatrix;
+    }
+
+    /**
+     * @return the dictionary
+     */
+    public LinkedHashMap<Sentence, Double> getDictionary() {
+        return dictionary;
+    }
+
+    /**
+     * @param dictionary the dictionary to set
+     */
+    public void setDictionary(LinkedHashMap<Sentence, Double> dictionary) {
+        this.dictionary = dictionary;
+    }
+    
+     /**
+     * @return the finalSummery
+     */
+    public String getFinalSummery() {
+        return finalSummery;
+    }
+
+    /**
+     * @param finalSummery the finalSummery to set
+     */
+    public void setFinalSummery(String finalSummery) {
+        this.finalSummery = finalSummery;
+    }
 }
