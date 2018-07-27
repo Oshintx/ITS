@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Collections;
 
-public class SummaryTool {
+public class Algorithm {
 
    
 
@@ -33,7 +33,7 @@ public class SummaryTool {
     private double[][] intersectionMatrix;
     private LinkedHashMap<Sentence, Double> dictionary;
     
-    public SummaryTool() {
+    public Algorithm() {
         in = null;
         out = null;
         noOfSentences = 0;
@@ -48,8 +48,7 @@ public class SummaryTool {
         setNoOfSentences(0);
         setNoOfParagraphs(0);
         try {
-//          String originalContext;
-//          originalContext=v.txtAreaInputDocument.getText();
+       
             setIn(new FileInputStream("samples/amazon/nexus_6p"));
             setOut(new FileOutputStream("output.txt"));
         } catch (FileNotFoundException e) {
@@ -102,7 +101,7 @@ public class SummaryTool {
         Paragraph paragraph = new Paragraph(0);
 
         for (int i = 0; i < getNoOfSentences(); i++) {
-            if (getSentences().get(i).paragraphNumber == paraNum) {
+            if (getSentences().get(i).getParagraphNumber() == paraNum) {
                 //continue
             } else {
                 getParagraphs().add(paragraph);
@@ -121,10 +120,10 @@ public class SummaryTool {
     public double noOfCommonWords(Sentence str1, Sentence str2) {
         double commonCount = 0;
 
-        for (String str1Word : str1.value.split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
+        for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
 
             //  System.out.println(str1Word);
-            for (String str2Word : str2.value.split("\\s+")) {
+            for (String str2Word : str2.getValue().split("\\s+")) {
 
                 //   System.out.println(str2Word);
                 if (str1Word.compareToIgnoreCase(str2Word) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
@@ -145,7 +144,7 @@ public class SummaryTool {
                 if (i <= j) {
                     Sentence str1 = getSentences().get(i);
                     Sentence str2 = getSentences().get(j);
-                    getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.noOfWords + str2.noOfWords) / 2);
+                    getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.getNoOfWords() + str2.getNoOfWords()) / 2);
                     //   System.out.println(intersectionMatrix[i][j]);   
                 } else {
                     getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
@@ -167,7 +166,7 @@ public class SummaryTool {
             //System.out.println(score);
 
             getDictionary().put(getSentences().get(i), score);
-            sentences.get(i).score = score;
+            sentences.get(i).setScore(score);
             // System.out.println(sentences.get(i).score);
         }
     }
@@ -191,7 +190,7 @@ public class SummaryTool {
 
     public void printSentences() {
         for (Sentence sentence : getSentences()) {
-            System.out.println(sentence.number + " => " + sentence.value + " => " + sentence.stringLength + " => " + sentence.noOfWords + " => " + sentence.paragraphNumber);
+            System.out.println(sentence.getNumber() + " => " + sentence.getValue() + " => " + sentence.getStringLength() + " => " + sentence.getNoOfWords() + " => " + sentence.getParagraphNumber());
         }
     }
 
@@ -218,11 +217,14 @@ public class SummaryTool {
 //	}
     public void printSummary() {
         
-        System.out.println("no of paragraphs = " + getNoOfParagraphs());
+       // System.out.println("no of paragraphs = " + getNoOfParagraphs());
         StringBuilder sb = new StringBuilder();
         for (Sentence sentence : getContentSummary()) {
-            sb.append(sentence.value);
-            sb.append("......!");
+            sb.append(sentence.getValue());
+            sb.append("\n");
+           // sb.append("[\\r\\n]+");
+          // sb.toString().split("[\\r\\n]+");
+           // sb.append("......!");
           //  System.out.println(sentence.value);
         }
         setFinalSummery(sb.toString());
@@ -231,7 +233,7 @@ public class SummaryTool {
     public double getWordCount(ArrayList<Sentence> sentenceList) {//here find the total no of words in the summery
         double wordCount = 0.0;
         for (Sentence sentence : sentenceList) {
-            wordCount += sentence.noOfWords;
+            wordCount += sentence.getNoOfWords();
         }
         return wordCount;
     }

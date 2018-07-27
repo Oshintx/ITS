@@ -1,10 +1,6 @@
 package View;
 
-import Controller.SummaryTool;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.ObjectOutputStream;
+import Controller.Algorithm;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +9,7 @@ import javax.swing.JOptionPane;
  */
 public class View extends javax.swing.JFrame {
 
-    SummaryTool summary = new SummaryTool();
+    Algorithm summary = new Algorithm();
 
     public View() {
         initComponents();
