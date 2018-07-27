@@ -54,12 +54,7 @@ public class Algorithm {
         setNoOfSentences(0);
         setNoOfParagraphs(0);
         try {
-            
-            
-            
-            
-            
-            setIn(new FileInputStream("test1.txt"));
+            setIn(new FileInputStream("context.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {

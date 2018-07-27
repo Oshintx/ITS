@@ -69,6 +69,7 @@ public class View extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaInputDocument = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
+        BtnEnterText = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -128,6 +129,14 @@ public class View extends javax.swing.JFrame {
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("BOT Predicted Intent: ");
         jPanelWelcome.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        BtnEnterText.setText("Enter Text");
+        BtnEnterText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEnterTextActionPerformed(evt);
+            }
+        });
+        jPanelWelcome.add(BtnEnterText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
 
         jTabbedPaneSub.addTab("                                          Input                                          ", jPanelWelcome);
 
@@ -253,19 +262,7 @@ public class View extends javax.swing.JFrame {
         
       
       
-		try {
-
-			File file = new File("test1.txt");
-			FileWriter fileWriter = new FileWriter(file);
-			fileWriter.write(txtAreaInputDocument.getText());
-			fileWriter.flush();
-			fileWriter.close();
-
-		} catch (IOException e) {
-
-			e.printStackTrace();
-
-                }
+		
         
        // summary.init();
        // summary.extractSentenceFromContext();
@@ -285,6 +282,21 @@ public class View extends javax.swing.JFrame {
         
         jTabbedPaneSub.setSelectedIndex(1);
     }//GEN-LAST:event_btnSummerizeActionPerformed
+
+    private void BtnEnterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnterTextActionPerformed
+try {
+
+			File file = new File("context.txt");
+			FileWriter fileWriter = new FileWriter(file);
+			fileWriter.write(txtAreaInputDocument.getText());
+			fileWriter.flush();
+			fileWriter.close();
+
+		} catch (IOException e) {
+
+			e.printStackTrace();
+
+                }    }//GEN-LAST:event_BtnEnterTextActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -334,6 +346,7 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnEnterText;
     private javax.swing.JButton btnSummerize;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
