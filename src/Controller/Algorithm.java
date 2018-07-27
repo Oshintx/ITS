@@ -18,10 +18,6 @@ import java.util.LinkedHashMap;
 import java.util.Collections;
 
 public class Algorithm {
-
-   
-
-
     private FileInputStream in;
     private FileOutputStream out;
     private ArrayList<Sentence> sentences;
@@ -33,11 +29,12 @@ public class Algorithm {
     private double[][] intersectionMatrix;
     private LinkedHashMap<Sentence, Double> dictionary;
     
+    
     public Algorithm() {
-        in = null;
-        out = null;
-        noOfSentences = 0;
-        noOfParagraphs = 0;
+        this.in = null;
+        this.out = null;
+        this.noOfSentences = 0;
+        this.noOfParagraphs = 0;
     }
 
     public void init() {
@@ -49,7 +46,7 @@ public class Algorithm {
         setNoOfParagraphs(0);
         try {
        
-            setIn(new FileInputStream("samples/amazon/nexus_6p"));
+          //  setIn(new FileInputStream("samples/amazon/nexus_6p"));
             setOut(new FileOutputStream("output.txt"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -59,11 +56,11 @@ public class Algorithm {
     }
 
     /*Gets the sentences from the entire passage*/
-    public void extractSentenceFromContext() { //this extract sentences from the document and creates a sentence object and it will store in a sentence type array list name call sentences
+    public void extractSentenceFromContext() { 
         int nextChar, j = 0;
         int prevChar = -1;
         try {
-            while ((nextChar = getIn().read()) != -1) {                          // The java.io.InputStream.read() method reads the next byte of the data from the the input stream and returns int in the range of 0 to 255.
+            while ((nextChar = getIn().read()) != -1) {                          
                 //   If no byte is available because the end of the stream has been reached, the returned value is -1.
                 j = 0;
                 char[] temp = new char[100000];

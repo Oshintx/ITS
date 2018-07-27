@@ -75,9 +75,12 @@ public class View extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         lblCompressionRatio = new javax.swing.JLabel();
-        lblNoOfWordsInContext = new javax.swing.JLabel();
+        lblNoOfParagraphsInContext = new javax.swing.JLabel();
         lblNoOfParagraphsInSummary = new javax.swing.JLabel();
         lblNoOfWordsSummary = new javax.swing.JLabel();
+        jLabel30 = new javax.swing.JLabel();
+        lblNoOfWordsInContext1 = new javax.swing.JLabel();
+        lblNoOfSentencesInContext = new javax.swing.JLabel();
         jPanelExit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -151,8 +154,8 @@ public class View extends javax.swing.JFrame {
 
         jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel27.setText("Number of  Paragraphs in Context :");
-        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 260, -1));
+        jLabel27.setText("Number of  Sentences in Context :");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 250, -1));
 
         jLabel28.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel28.setForeground(new java.awt.Color(255, 255, 255));
@@ -168,9 +171,9 @@ public class View extends javax.swing.JFrame {
         lblCompressionRatio.setText("..");
         jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 20, -1));
 
-        lblNoOfWordsInContext.setForeground(new java.awt.Color(204, 0, 0));
-        lblNoOfWordsInContext.setText("..");
-        jPanel1.add(lblNoOfWordsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 20, -1));
+        lblNoOfParagraphsInContext.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfParagraphsInContext.setText("..");
+        jPanel1.add(lblNoOfParagraphsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 20, -1));
 
         lblNoOfParagraphsInSummary.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfParagraphsInSummary.setText("..");
@@ -179,6 +182,19 @@ public class View extends javax.swing.JFrame {
         lblNoOfWordsSummary.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfWordsSummary.setText("..");
         jPanel1.add(lblNoOfWordsSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 350, 20, -1));
+
+        jLabel30.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel30.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel30.setText("Number of  Paragraphs in Context :");
+        jPanel1.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 260, -1));
+
+        lblNoOfWordsInContext1.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfWordsInContext1.setText("..");
+        jPanel1.add(lblNoOfWordsInContext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 20, -1));
+
+        lblNoOfSentencesInContext.setForeground(new java.awt.Color(204, 0, 0));
+        lblNoOfSentencesInContext.setText("..");
+        jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 20, -1));
 
         jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
 
@@ -213,13 +229,14 @@ public class View extends javax.swing.JFrame {
       
         summary.init();
         summary.extractSentenceFromContext();
-        summary.groupSentencesIntoParagraphs();
-        summary.createIntersectionMatrix();
-        summary.createDictionary();
-        System.out.println("SUMMMARY");
-        summary.createSummary();
-        summary.printSummary();
-        summary.printStats();
+        
+       // summary.groupSentencesIntoParagraphs();
+        //summary.createIntersectionMatrix();
+        //summary.createDictionary();
+        //System.out.println("SUMMMARY");
+        //summary.createSummary();
+        //summary.printSummary();
+       // summary.printStats();
         lblNoOfParagraphsInSummary.setText(Integer.toString(summary.getNoOfParagraphs()));
         txtAreaOutputDocument.setText(summary.getFinalSummery());
        // lblCompressionRatio.setText();
@@ -287,6 +304,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelExit;
@@ -296,8 +314,10 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
     private javax.swing.JLabel lblCompressionRatio;
+    private javax.swing.JLabel lblNoOfParagraphsInContext;
     private javax.swing.JLabel lblNoOfParagraphsInSummary;
-    private javax.swing.JLabel lblNoOfWordsInContext;
+    private javax.swing.JLabel lblNoOfSentencesInContext;
+    private javax.swing.JLabel lblNoOfWordsInContext1;
     private javax.swing.JLabel lblNoOfWordsSummary;
     private javax.swing.ButtonGroup radGrpGender;
     private javax.swing.JTextArea txtAreaInputDocument;
