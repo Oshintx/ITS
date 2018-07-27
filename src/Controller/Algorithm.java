@@ -109,7 +109,7 @@ public class Algorithm {
                 paragraph = new Paragraph(paraNum);
 
             }
-            paragraph.sentences.add(getSentences().get(i));
+            paragraph.getSentences().add(getSentences().get(i));
             //System.out.println("paragraph no"+paragraph.number);
 
         }
@@ -174,12 +174,12 @@ public class Algorithm {
     public void createSummary() {
 
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            int primary_set = getParagraphs().get(j).sentences.size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+            int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
             //  System.out.println(primary_set);
             //Sort based on score (importance)
-            Collections.sort(getParagraphs().get(j).sentences, new SentenceComparator());//sort here according to the score of a sentence(SentenceComparator has a compare to do this)
+            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparator());//sort here according to the score of a sentence(SentenceComparator has a compare to do this)
             for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
-                getContentSummary().add(getParagraphs().get(j).sentences.get(i));
+                getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
             }
         }
 

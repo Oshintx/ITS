@@ -10,8 +10,6 @@ package Models;
  * @author Oshin
  */
 public class Sentence{
-
-  
         private int paragraphNumber;
 	private int number;
 	private int stringLength; //Dont need this 
@@ -116,4 +114,4 @@ public class Sentence{
     public void setValue(String value) {
         this.value = value;
     }
-}
+} 
