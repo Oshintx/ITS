@@ -1,3 +1,18 @@
-ha.
-hhhh.
-ha
+Whenever a string is constructed using a loop that iterates more than just a few times, it is usually better to create a StringBuffer or StringBuilder object and append to that. Because such buffers are based on mutable character arrays, which do not require a new string to be created for each concatenation, they can reduce the cost of repeatedly growing the string.
+
+To choose between StringBuffer and StringBuilder, check if the new buffer object can possibly be accessed by several different threads while in use. If multi-thread safety is required, use a StringBuffer. For purely local string buffers, you can avoid the overhead of synchronization by using a StringBuilder.
+
+
+
+
+iomjknjlkm kkj njk
+
+kmkl
+
+jkkmk
+
+
+
+
+
+mmkj
