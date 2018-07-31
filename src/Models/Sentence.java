@@ -15,7 +15,7 @@ public class Sentence{
 	private int stringLength; //Dont need this 
 	private double score;
 	private int noOfWords;
-	private String value;
+	public String value;
 /**
  * Sentence Class devide Entire text in to paragraph and then paragraphs devided in to number of sentences
  * @param number

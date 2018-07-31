@@ -16,20 +16,38 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Collections;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 public class Algorithm {
 
+   
    Writer writer = null;
     private FileInputStream in;
     private FileOutputStream out;
+    //contain sentences in the context
     private ArrayList<Sentence> sentences;
+    //contain sentences in the summery
     private ArrayList<Sentence> contentSummary;
+    //contain final summery
     private String finalSummery;
+    
+    private String finaldictionaryOfParagraphNoAndSentence;
+
+    //contain paragraphs in context
     private ArrayList<Paragraph> paragraphs;
+    //contain no of sentences in the context
+    
     private int noOfSentences;
+    //contain no of paragraph in the context
     private int  noOfParagraphs;
+    
+    
     private double[][] intersectionMatrix;
     private LinkedHashMap<Sentence, Double> dictionary;
+    private LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence;
+
     private double Commpression;
     
     public Algorithm() {
@@ -47,10 +65,11 @@ public class Algorithm {
     }
 
     public void init() {
-        setSentences(new ArrayList<Sentence>());
+        setSentences(new ArrayList<Sentence>());//this array list contain sentences in the context
         setParagraphs(new ArrayList<Paragraph>());
         setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
         setDictionary(new LinkedHashMap<Sentence, Double>());
+        setDictionaryOfParagraphNoAndSentence(new LinkedHashMap<Sentence, Integer>() );
         setNoOfSentences(0);
         setNoOfParagraphs(0);
         try {
@@ -94,25 +113,36 @@ public class Algorithm {
 
     }
 
-    public void groupSentencesIntoParagraphs() {//from this methode take 
+    public void groupSentencesIntoParagraphs() {//from this methode take sentences with  paragraph number and group them with similar pargraph number
         int paraNum = 0;
         Paragraph paragraph = new Paragraph(0);
 
         for (int i = 0; i < getNoOfSentences(); i++) {
-            if (getSentences().get(i).getParagraphNumber() == paraNum) {
+            if (getSentences().get(i).getParagraphNumber() == paraNum) {//check whether the selected sentence paragraph number similar to paraNum
+                System.out.println(getSentences().get(i));
+                System.out.println("paraNum"+paraNum);
+                System.out.println("paragaph number"+getSentences().get(i).getParagraphNumber());
+                                getDictionaryOfParagraphNoAndSentence().put(getSentences().get(i), paraNum);
+                               
+
                 //continue
             } else {
-                getParagraphs().add(paragraph);
-                paraNum++;
-                paragraph = new Paragraph(paraNum);
+                getParagraphs().add(paragraph);//if selected sentence paragraph number not similar to paraNum add prev created paragraph in paragraph list here.
+                paraNum++;//increase paraNum
+                System.out.println("paraNum"+paraNum);
+                 paragraph = new Paragraph(paraNum);//create new paragraph with new paraNum. 
+                System.out.println("paragaph number else part"+getSentences().get(i).getParagraphNumber());
+                getDictionaryOfParagraphNoAndSentence().put(getSentences().get(i),paraNum);
 
-            }
-            paragraph.getSentences().add(getSentences().get(i));
-            //System.out.println("paragraph no"+paragraph.number);
+  }
+
+            paragraph.getSentences().add(getSentences().get(i));//if selected sentence paragraph number similar to paraNum insert that selected sentence in to that paragraph sentnce array list.
+            System.out.println("paragraph no"+paragraph.getNumber());
 
         }
 
         getParagraphs().add(paragraph);
+        
     }
 
     public double noOfCommonWords(Sentence str1, Sentence str2) {
@@ -185,6 +215,11 @@ public class Algorithm {
         Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
 
     }
+    
+    public void printSentenecresWithParagraphNumber(){
+        
+    }
+    
 
     public void printSentences() {
         for (Sentence sentence : getSentences()) {
@@ -201,18 +236,41 @@ public class Algorithm {
         }
     }
 
-//	void printDicationary(){
-//		  // Get a set of the entries
-//	      Set set = dictionary.entrySet();
-//	      // Get an iterator
-//	      Iterator i = set.iterator();
-//	      // Display elements
-//	      while(i.hasNext()) {
-//	         Map.Entry me = (Map.Entry)i.next();
-//	         System.out.print(((Sentence)me.getKey()).value + ": ");
+    public void printDicationary(){
+		  // Get a set of the entries
+	      Set set = dictionary.entrySet();
+	      // Get an iterator
+	      Iterator i = set.iterator();
+	      // Display elements
+	      while(i.hasNext()) {
+	         Map.Entry me = (Map.Entry)i.next();
+	         System.out.print(((Sentence)me.getKey()).value + ": ");
+	         System.out.println(me.getValue());
+	      }
+	}
+     public void DictionaryOfParagraphNoAndSentence(){
+	        StringBuilder sb = new StringBuilder();
+                 sb.append("   Sentence : ");
+                 sb.append("   Paragraph Number");
+                 sb.append("\n");
+                 sb.append("\n");
+         // Get a set of the entries
+	      Set set = dictionaryOfParagraphNoAndSentence.entrySet();
+	      // Get an iterator
+	      Iterator i = set.iterator();
+	      // Display elements
+	      while(i.hasNext()) {
+	         Map.Entry me = (Map.Entry)i.next();
+                 sb.append("   "+((Sentence)me.getKey()).value + ": ");
+                 sb.append("   "+me.getValue());
+                 sb.append("\n");
+                 sb.append("\n");
+//                 System.out.print(((Sentence)me.getKey()).value + ": ");
 //	         System.out.println(me.getValue());
-//	      }
-//	}
+	      }
+              setFinaldictionaryOfParagraphNoAndSentence(sb.toString());
+              
+	}
     public void printSummary() {
         
        // System.out.println("no of paragraphs = " + getNoOfParagraphs());
@@ -398,4 +456,35 @@ public class Algorithm {
         this.Commpression= (getWordCount(getContentSummary()) / getWordCount(getSentences()));
     
     }
+     /**
+     * @return the dictionaryOfParagraphNoAndSentence
+     */
+    public LinkedHashMap<Sentence, Integer> getDictionaryOfParagraphNoAndSentence() {
+        return dictionaryOfParagraphNoAndSentence;
+    }
+
+    /**
+     * @param dictionaryOfParagraphNoAndSentence the dictionaryOfParagraphNoAndSentence to set
+     */
+    public void setDictionaryOfParagraphNoAndSentence(LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence) {
+        this.dictionaryOfParagraphNoAndSentence = dictionaryOfParagraphNoAndSentence;
+    }
+     /**
+     * @return the finaldictionaryOfParagraphNoAndSentence
+     */
+    public String getFinaldictionaryOfParagraphNoAndSentence() {
+        return finaldictionaryOfParagraphNoAndSentence;
+    }
+
+    /**
+     * @param finaldictionaryOfParagraphNoAndSentence the finaldictionaryOfParagraphNoAndSentence to set
+     */
+    public void setFinaldictionaryOfParagraphNoAndSentence(String finaldictionaryOfParagraphNoAndSentence) {
+        this.finaldictionaryOfParagraphNoAndSentence = finaldictionaryOfParagraphNoAndSentence;
+    }
+
+   
+
+
+    
 }

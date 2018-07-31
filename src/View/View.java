@@ -1,17 +1,23 @@
 package View;
-
+import javax.swing.*;
 import Controller.Algorithm;
+import java.awt.Color;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Document;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
 
 /**
  *
  * @author Oshin
  */
 public class View extends javax.swing.JFrame {
+    Highlighter.HighlightPainter myHighlightPainter=new MyHighLighterPainter(Color.red);
 
     Algorithm summary = new Algorithm();
 
@@ -20,7 +26,38 @@ public class View extends javax.swing.JFrame {
         switchScreens();
 
     }
-
+    
+    class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter{
+        public MyHighLighterPainter(Color color){
+            super(color);
+        }
+        
+      
+        
+        
+    }
+  public void highlight(JTextComponent txtAreaOutputDocument,String pattern){
+            
+            try {
+                
+                Highlighter hilite=txtAreaOutputDocument.getHighlighter();
+                Document doc=txtAreaOutputDocument.getDocument();
+                String text=doc.getText(0,doc.getLength());
+                int pos=0;//position
+                
+                while((pos=text.toUpperCase().indexOf(pattern.toUpperCase(),pos))>=0){
+                    hilite.addHighlight(pos, pos+pattern.length(), myHighlightPainter);
+                    pos+=pattern.length();
+                }
+                   
+                
+                
+            } catch (Exception e) {
+            }
+            
+            
+        }
+    
     public void switchScreens() {
         int selectedIndex = jTabbedPaneHead.getSelectedIndex();
 //        if (selectedIndex == 0) {
@@ -70,6 +107,8 @@ public class View extends javax.swing.JFrame {
         txtAreaInputDocument = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         BtnEnterText = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        search = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -137,6 +176,15 @@ public class View extends javax.swing.JFrame {
             }
         });
         jPanelWelcome.add(BtnEnterText, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 360, -1, -1));
+
+        jButton1.setText("Search");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelWelcome.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 80, -1));
+        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 150, -1));
 
         jTabbedPaneSub.addTab("                                          Input                                          ", jPanelWelcome);
 
@@ -254,12 +302,16 @@ public class View extends javax.swing.JFrame {
         summary.createSummary();
         summary.printSummary();
         summary.printStats();
+        summary.DictionaryOfParagraphNoAndSentence();
+       // summary.printDicationary();
 
-        txtAreaOutputDocument.setText(summary.getFinalSummery());
-        lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
-        summary.setCommpression();
-        lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
-        
+      // txtAreaOutputDocument.setText(summary.getFinalSummery());
+       txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
+       lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
+       summary.setCommpression();
+       lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
+
+      
       
       
 		
@@ -272,12 +324,12 @@ public class View extends javax.swing.JFrame {
        // System.out.println("SUMMMARY");
        // summary.createSummary();
        // summary.printSummary();
-       // summary.printStats();
+      //  summary.printStats();
        //summary.printSentences();
        //System.out.println("INTERSECTION MATRIX");
-       //summary.printIntersectionMatrix();
-       //summary.printDicationary();
-        
+      // summary.printIntersectionMatrix();
+      
+      
         
         
         jTabbedPaneSub.setSelectedIndex(1);
@@ -297,6 +349,12 @@ try {
 			e.printStackTrace();
 
                 }    }//GEN-LAST:event_BtnEnterTextActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        highlight(txtAreaInputDocument,search.getText());
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -348,6 +406,7 @@ try {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnterText;
     private javax.swing.JButton btnSummerize;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -370,6 +429,7 @@ try {
     private javax.swing.JLabel lblNoOfWordsInContext1;
     private javax.swing.JLabel lblNoOfWordsSummary;
     private javax.swing.ButtonGroup radGrpGender;
+    private javax.swing.JTextField search;
     private javax.swing.JTextArea txtAreaInputDocument;
     private javax.swing.JTextArea txtAreaOutputDocument;
     // End of variables declaration//GEN-END:variables
