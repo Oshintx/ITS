@@ -1,5 +1,7 @@
 package View;
 
+
+
 import Controller.Algorithm;
 import java.awt.Color;
 import java.io.File;
@@ -15,39 +17,18 @@ import javax.swing.text.JTextComponent;
  *
  * @author Oshin
  */
-public class View extends javax.swing.JFrame {
+public class how extends javax.swing.JFrame {
 
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
 
     Algorithm summary = new Algorithm();
 
-    public View() {
+    public how() {
         initComponents();
-        switchScreens();
 
     }
 
-    public void switchScreens() {
-        int selectedIndexHead = jTabbedPaneHead.getSelectedIndex();
-        int selectedIndexSub = jTabbedPaneSub.getSelectedIndex();
-
-        if (selectedIndexHead == 1) {
-            int answer = JOptionPane.showConfirmDialog(null, "Do you really want to Exit?", "ITS V.1.0", JOptionPane.YES_NO_OPTION);
-            if (answer == 0) {            //yes=0   No=1
-                this.dispose();
-            }
-            if (answer == 1) {
-                jTabbedPaneHead.setSelectedIndex(0);
-            }
-        }
-
-        if (selectedIndexSub == 0) {
-            jTabbedPaneSub.setEnabledAt(1, false);
-        }
-        if (selectedIndexSub == 1) {
-            jTabbedPaneSub.setEnabledAt(1, true);
-        }
-    }
+   
 
     class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter {
 
@@ -95,12 +76,6 @@ public class View extends javax.swing.JFrame {
         radGrpGender = new javax.swing.ButtonGroup();
         jTabbedPaneHead = new javax.swing.JTabbedPane();
         jTabbedPaneSub = new javax.swing.JTabbedPane();
-        jPanelWelcome = new javax.swing.JPanel();
-        btnSummerize = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtAreaInputDocument = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
-        search = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -116,7 +91,6 @@ public class View extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         lblNoOfWordsInContext1 = new javax.swing.JLabel();
         lblNoOfSentencesInContext = new javax.swing.JLabel();
-        btnHow = new javax.swing.JButton();
         jPanelExit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -132,39 +106,6 @@ public class View extends javax.swing.JFrame {
         });
 
         jTabbedPaneSub.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-
-        jPanelWelcome.setBackground(new java.awt.Color(32, 33, 35));
-        jPanelWelcome.setVerifyInputWhenFocusTarget(false);
-        jPanelWelcome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/school-material (1).png"))); // NOI18N
-        btnSummerize.setBorder(null);
-        btnSummerize.setContentAreaFilled(false);
-        btnSummerize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
-        btnSummerize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/write.png"))); // NOI18N
-        btnSummerize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSummerizeActionPerformed(evt);
-            }
-        });
-        jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, 100, 70));
-
-        txtAreaInputDocument.setColumns(20);
-        txtAreaInputDocument.setRows(5);
-        jScrollPane1.setViewportView(txtAreaInputDocument);
-
-        jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 930, 280));
-
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanelWelcome.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 80, -1));
-        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, 150, -1));
-
-        jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
         jPanel1.setBackground(new java.awt.Color(32, 33, 35));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -230,19 +171,7 @@ public class View extends javax.swing.JFrame {
         lblNoOfSentencesInContext.setText("..");
         jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, -1));
 
-        btnHow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question32.png"))); // NOI18N
-        btnHow.setBorder(null);
-        btnHow.setContentAreaFilled(false);
-        btnHow.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionPressed.png"))); // NOI18N
-        btnHow.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionRollover.png"))); // NOI18N
-        btnHow.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnHowActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnHow, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, -1, -1));
-
-        jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
+        jTabbedPaneSub.addTab("                                                                    Detailed Description                                                    ", jPanel1);
 
         jTabbedPaneHead.addTab("                                            Intelligent Text Summarizer                                      ", jTabbedPaneSub);
 
@@ -268,82 +197,11 @@ public class View extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPaneHeadMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPaneHeadMouseClicked
-        switchScreens();
+     
     }//GEN-LAST:event_jTabbedPaneHeadMouseClicked
 
-    private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
-
-        if (!txtAreaInputDocument.getText().isEmpty()) {
-
-            try {
-                File file = new File("context.txt");
-                FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(txtAreaInputDocument.getText());
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            summary.init();
-            summary.extractSentenceFromContext();
-            lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
-            lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
-            lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
-
-            /////
-            summary.groupSentencesIntoParagraphs();
-            summary.createIntersectionMatrix();
-            summary.createDictionary();
-            System.out.println("SUMMMARY");
-            summary.createSummary();
-            summary.printSummary();
-            summary.printStats();
-            summary.DictionaryOfParagraphNoAndSentence();
-            // summary.printDicationary();
-
-            txtAreaOutputDocument.setText(summary.getFinalSummery());
-            // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
-            lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
-            summary.setCommpression();
-            lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
-
-            // summary.init();
-            // summary.extractSentenceFromContext();
-            //summary.groupSentencesIntoParagraphs();
-            // summary.createIntersectionMatrix();
-            // summary.createDictionary();
-            // System.out.println("SUMMMARY");
-            // summary.createSummary();
-            // summary.printSummary();
-            //  summary.printStats();
-            //summary.printSentences();
-            //System.out.println("INTERSECTION MATRIX");
-            // summary.printIntersectionMatrix();
-            //Go To Output Tab
-            jTabbedPaneSub.setSelectedIndex(1);
-            switchScreens();
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Please place your summery here !", " ITS ", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_btnSummerizeActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        highlight(txtAreaInputDocument, search.getText());
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
-        how h = new how();
-        h.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnHowActionPerformed
-
     public static void main(String args[]) {
-
+       
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -352,26 +210,25 @@ public class View extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(how.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(how.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(how.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(View.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(how.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+       
 
+        /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new View().setVisible(true);
+                new how().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnHow;
-    private javax.swing.JButton btnSummerize;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -380,8 +237,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel30;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelExit;
-    private javax.swing.JPanel jPanelWelcome;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
@@ -392,8 +247,6 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel lblNoOfWordsInContext1;
     private javax.swing.JLabel lblNoOfWordsSummary;
     private javax.swing.ButtonGroup radGrpGender;
-    private javax.swing.JTextField search;
-    private javax.swing.JTextArea txtAreaInputDocument;
     private javax.swing.JTextArea txtAreaOutputDocument;
     // End of variables declaration//GEN-END:variables
 

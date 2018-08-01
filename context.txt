@@ -1,1 +1,1 @@
-sacadscszdcasc
+                JOptionPane.showMessageDialog(null, "You are exceded the frequency of this Bin !", " Dummy Data Bin", JOptionPane.ERROR_MESSAGE);
