@@ -99,8 +99,9 @@ public class View extends javax.swing.JFrame {
         btnSummerize = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaInputDocument = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
         search = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -154,15 +155,23 @@ public class View extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreaInputDocument);
 
         jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 930, 280));
+        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 150, -1));
 
-        jButton1.setText("Search");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Precentage level", "25%", "50%", "75%", "100%" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jComboBox1ActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 370, 80, -1));
-        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 370, 150, -1));
+        jPanelWelcome.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 190, -1));
+
+        jButton2.setText("Enter the Key Word ");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 150, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
@@ -302,8 +311,8 @@ public class View extends javax.swing.JFrame {
             summary.DictionaryOfParagraphNoAndSentence();
             // summary.printDicationary();
 
-            txtAreaOutputDocument.setText(summary.getFinalSummery());
-            // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
+            //txtAreaOutputDocument.setText(summary.getFinalSummery());
+             txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
@@ -330,17 +339,19 @@ public class View extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        highlight(txtAreaInputDocument, search.getText());
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
-        how h = new how();
-        h.setVisible(true);
-        dispose();
+//        how h = new how();
+//        h.setVisible(true);
+//        dispose();
     }//GEN-LAST:event_btnHowActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+                highlight(txtAreaInputDocument,search.getText());
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
 
@@ -371,7 +382,8 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHow;
     private javax.swing.JButton btnSummerize;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
