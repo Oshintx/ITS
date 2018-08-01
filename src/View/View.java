@@ -1,8 +1,7 @@
 package View;
-import javax.swing.*;
+
 import Controller.Algorithm;
 import java.awt.Color;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -17,7 +16,8 @@ import javax.swing.text.JTextComponent;
  * @author Oshin
  */
 public class View extends javax.swing.JFrame {
-    Highlighter.HighlightPainter myHighlightPainter=new MyHighLighterPainter(Color.red);
+
+    Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
 
     Algorithm summary = new Algorithm();
 
@@ -26,60 +26,55 @@ public class View extends javax.swing.JFrame {
         switchScreens();
 
     }
-    
-    class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter{
-        public MyHighLighterPainter(Color color){
-            super(color);
-        }
-        
-      
-        
-        
-    }
-  public void highlight(JTextComponent txtAreaOutputDocument,String pattern){
-            
-            try {
-                
-                Highlighter hilite=txtAreaOutputDocument.getHighlighter();
-                Document doc=txtAreaOutputDocument.getDocument();
-                String text=doc.getText(0,doc.getLength());
-                int pos=0;//position
-                
-                while((pos=text.toUpperCase().indexOf(pattern.toUpperCase(),pos))>=0){
-                    hilite.addHighlight(pos, pos+pattern.length(), myHighlightPainter);
-                    pos+=pattern.length();
-                }
-                   
-                
-                
-            } catch (Exception e) {
-            }
-            
-            
-        }
-    
-    public void switchScreens() {
-        int selectedIndex = jTabbedPaneHead.getSelectedIndex();
-//        if (selectedIndex == 0) {
-//            jTabbedPaneHead.setEnabledAt(1, false);
-//            jTabbedPaneHead.setEnabledAt(2, false);
-//            jTabbedPaneHead.setEnabledAt(3, false);
-//            jTabbedPaneHead.setEnabledAt(4, false);
-//        }
 
-        if (selectedIndex == 1) {
+    public void switchScreens() {
+        int selectedIndexHead = jTabbedPaneHead.getSelectedIndex();
+        int selectedIndexSub = jTabbedPaneSub.getSelectedIndex();
+
+        if (selectedIndexHead == 1) {
             int answer = JOptionPane.showConfirmDialog(null, "Do you really want to Exit?", "ITS V.1.0", JOptionPane.YES_NO_OPTION);
             if (answer == 0) {            //yes=0   No=1
-                this.dispose(); //exit application
+                this.dispose();
             }
             if (answer == 1) {
                 jTabbedPaneHead.setSelectedIndex(0);
             }
+        }
 
+        if (selectedIndexSub == 0) {
+            jTabbedPaneSub.setEnabledAt(1, false);
+        }
+        if (selectedIndexSub == 1) {
+            jTabbedPaneSub.setEnabledAt(1, true);
         }
     }
 
-    
+    class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter {
+
+        public MyHighLighterPainter(Color color) {
+            super(color);
+        }
+    }
+
+    public void highlight(JTextComponent txtAreaOutputDocument, String pattern) {
+
+        try {
+
+            Highlighter hilite = txtAreaOutputDocument.getHighlighter();
+            Document doc = txtAreaOutputDocument.getDocument();
+            String text = doc.getText(0, doc.getLength());
+            int pos = 0;//position
+
+            while ((pos = text.toUpperCase().indexOf(pattern.toUpperCase(), pos)) >= 0) {
+                hilite.addHighlight(pos, pos + pattern.length(), myHighlightPainter);
+                pos += pattern.length();
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+
 //    public void writeOriginalDocumentToFile() {
 //        try {
 //            FileOutputStream out = new FileOutputStream(new File("originalText.txt"));
@@ -88,7 +83,6 @@ public class View extends javax.swing.JFrame {
 //            System.out.println(e);
 //        }
 //    }
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -125,6 +119,7 @@ public class View extends javax.swing.JFrame {
         jLabel30 = new javax.swing.JLabel();
         lblNoOfWordsInContext1 = new javax.swing.JLabel();
         lblNoOfSentencesInContext = new javax.swing.JLabel();
+        btnHow = new javax.swing.JButton();
         jPanelExit = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,7 +181,7 @@ public class View extends javax.swing.JFrame {
         jPanelWelcome.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 310, 80, -1));
         jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 150, -1));
 
-        jTabbedPaneSub.addTab("                                          Input                                          ", jPanelWelcome);
+        jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
         jPanel1.setBackground(new java.awt.Color(32, 33, 35));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -257,6 +252,13 @@ public class View extends javax.swing.JFrame {
         lblNoOfSentencesInContext.setText("..");
         jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, -1));
 
+        btnHow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question32.png"))); // NOI18N
+        btnHow.setBorder(null);
+        btnHow.setContentAreaFilled(false);
+        btnHow.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionPressed.png"))); // NOI18N
+        btnHow.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionRollover.png"))); // NOI18N
+        jPanel1.add(btnHow, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 420, -1, -1));
+
         jTabbedPaneSub.addTab("                                        Output                                        ", jPanel1);
 
         jTabbedPaneHead.addTab("                                            Intelligent Text Summarizer                                      ", jTabbedPaneSub);
@@ -287,11 +289,11 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPaneHeadMouseClicked
 
     private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
-      
+
         summary.init();
         summary.extractSentenceFromContext();
         lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
-        lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs()+1));
+        lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
         lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
 
         /////
@@ -303,56 +305,49 @@ public class View extends javax.swing.JFrame {
         summary.printSummary();
         summary.printStats();
         summary.DictionaryOfParagraphNoAndSentence();
-       // summary.printDicationary();
+        // summary.printDicationary();
 
-      // txtAreaOutputDocument.setText(summary.getFinalSummery());
-       txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
-       lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
-       summary.setCommpression();
-       lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
+        txtAreaOutputDocument.setText(summary.getFinalSummery());
+        // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
+        lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
+        summary.setCommpression();
+        lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
 
-      
-      
-      
-		
-        
-       // summary.init();
-       // summary.extractSentenceFromContext();
-       //summary.groupSentencesIntoParagraphs();
-       // summary.createIntersectionMatrix();
-       // summary.createDictionary();
-       // System.out.println("SUMMMARY");
-       // summary.createSummary();
-       // summary.printSummary();
-      //  summary.printStats();
-       //summary.printSentences();
-       //System.out.println("INTERSECTION MATRIX");
-      // summary.printIntersectionMatrix();
-      
-      
-        
-        
+        // summary.init();
+        // summary.extractSentenceFromContext();
+        //summary.groupSentencesIntoParagraphs();
+        // summary.createIntersectionMatrix();
+        // summary.createDictionary();
+        // System.out.println("SUMMMARY");
+        // summary.createSummary();
+        // summary.printSummary();
+        //  summary.printStats();
+        //summary.printSentences();
+        //System.out.println("INTERSECTION MATRIX");
+        // summary.printIntersectionMatrix();
+        //Go To Output Tab
         jTabbedPaneSub.setSelectedIndex(1);
+        switchScreens();
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
     private void BtnEnterTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnterTextActionPerformed
-try {
+        try {
 
-			File file = new File("context.txt");
-			FileWriter fileWriter = new FileWriter(file);
-			fileWriter.write(txtAreaInputDocument.getText());
-			fileWriter.flush();
-			fileWriter.close();
+            File file = new File("context.txt");
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(txtAreaInputDocument.getText());
+            fileWriter.flush();
+            fileWriter.close();
 
-		} catch (IOException e) {
+        } catch (IOException e) {
 
-			e.printStackTrace();
+            e.printStackTrace();
 
                 }    }//GEN-LAST:event_BtnEnterTextActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
-        highlight(txtAreaInputDocument,search.getText());
+        highlight(txtAreaInputDocument, search.getText());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -405,6 +400,7 @@ try {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEnterText;
+    private javax.swing.JButton btnHow;
     private javax.swing.JButton btnSummerize;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel23;
