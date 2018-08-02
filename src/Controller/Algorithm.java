@@ -46,7 +46,7 @@ public class Algorithm {
     private double[][] intersectionMatrix;
    
     private int[] noOfKeyWords;
-    //Contain Sentences With Key Words.
+    //Contain Sentences With Key Words in the context.
     private ArrayList<Sentence> sentencesWithKeyWords;
     //Contain Sentences With Scores
     private LinkedHashMap<Sentence, Double> dictionary;
@@ -71,7 +71,7 @@ public class Algorithm {
 
     public void init() {
         setSentences(new ArrayList<Sentence>());//this array list contain sentences in the context
-        setSentencesWithKeyWords(new ArrayList<Sentence>());
+        setSentencesWithKeyWords(new ArrayList<Sentence>());//this array list contain sentences with key words in the context
         setParagraphs(new ArrayList<Paragraph>());
         setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
         setDictionary(new LinkedHashMap<Sentence, Double>());
@@ -150,6 +150,12 @@ public class Algorithm {
         getParagraphs().add(paragraph);
         
     }
+    /**
+     * check no of common words to create Intersection Matrix base on no option
+     * @param str1
+     * @param str2
+     * @return commonCount
+     */
 
     public double noOfCommonWords(Sentence str1, Sentence str2) {
         double commonCount = 0;
@@ -162,7 +168,7 @@ public class Algorithm {
                 //   System.out.println(str2Word);
                 if (str1Word.compareToIgnoreCase(str2Word) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
                     commonCount++;
-                    //   System.out.println(commonCount);
+                    System.out.println("common count of key word base :"+commonCount);
                 }
             }
         }
@@ -170,25 +176,9 @@ public class Algorithm {
         return commonCount;
     }
     
-    
-    public int noOfKeyWords(Sentence str1, String keyWord) {
-        int keyWordCount = 0;
-
-        for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
-
-            //  System.out.println(str1Word);
-
-                //   System.out.println(str2Word);
-                if (str1Word.compareToIgnoreCase(keyWord) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
-                    keyWordCount++;
-                    System.out.println("keyWordCount : "+keyWordCount);
-                }
-            
-        }
-
-        return keyWordCount;
-    }
-
+   /**
+    * Intersection Matrix base on no option
+    */
     public void createIntersectionMatrix() {
         setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -208,6 +198,31 @@ public class Algorithm {
         }
 
     }
+    /**
+     * check no of key words to create noOfKeyWordsArray 
+     * @param str1
+     * @param keyWord
+     * @return keyWordCount
+     */
+     
+    public int noOfKeyWords(Sentence str1, String keyWord) {
+        int keyWordCount = 0;
+
+        for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
+
+            //  System.out.println(str1Word);
+
+                //   System.out.println(str2Word);
+                if (str1Word.compareToIgnoreCase(keyWord) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
+                    keyWordCount++;
+                    System.out.println("keyWordCount : "+keyWordCount);
+                }
+            
+        }
+
+        return keyWordCount;
+    }
+
     
     public void createnoOfKeyWordsArray(String keyWord){
         setNoOfKeyWords(new int[getNoOfSentences()]);
@@ -223,7 +238,33 @@ public class Algorithm {
                 System.out.println("getSentencesWithKeyWords "+getSentencesWithKeyWords().size());
     }
     
+/**
+ * Intersection Matrix base on keyword
+ */
+     public void createIntersectionMatrixBaseOnKeyWords() {
+        setIntersectionMatrix(new double[getSentencesWithKeyWords().size()][getSentencesWithKeyWords().size()]);//arr[i][j]
+        for (int i = 0; i < getSentencesWithKeyWords().size(); i++) {
+            for (int j = 0; j < getSentencesWithKeyWords().size(); j++) {
 
+                if (i <= j) {
+                    Sentence str1 = getSentences().get(i);
+                    Sentence str2 = getSentences().get(j);
+                    getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.getNoOfWords() + str2.getNoOfWords()) / 2);
+                    //   System.out.println(intersectionMatrix[i][j]);   
+                } else {
+                    getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
+                    // System.out.println(intersectionMatrix[i][j]);   
+                }
+
+            }
+        }
+
+    }
+    
+    
+    /**
+     * Create Dictionary base on no option
+     */
     public void createDictionary() {
         for (int i = 0; i < getNoOfSentences(); i++) {
             double score = 0;
@@ -238,8 +279,49 @@ public class Algorithm {
             // System.out.println(sentences.get(i).score);
         }
     }
+    /**
+     * Create Dictionary base on KeyWord
+    */
+     public void createDictionaryBaseOnKeyWords() {
+        for (int i = 0; i < getSentencesWithKeyWords().size(); i++) {
+            double score = 0;
+            for (int j = 0; j < getSentencesWithKeyWords().size(); j++) {
+                score += getIntersectionMatrix()[i][j];//score=intersectionMatrix[i][j]+score;
 
+            }
+            //System.out.println(score);
+
+            getDictionary().put(getSentencesWithKeyWords().get(i), score);
+            getSentencesWithKeyWords().get(i).setScore(score);
+            //System.out.println(sentences.get(i).score);
+        }
+    }
+
+    
+    /**
+     * Create Summary base on no option
+     */
+    
     public void createSummary() {
+
+        for (int j = 0; j <= getNoOfParagraphs(); j++) {
+            int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+            //  System.out.println(primary_set);
+            //Sort based on score (importance)
+            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
+            for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
+                getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
+            }
+        }
+
+        //To ensure proper ordering (order should be qual to the original context order)
+        Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
+
+    }
+    /**
+     * Create Summary base on keyword
+     */
+    public void createSummaryBaseOnKeyWords() {
 
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
             int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery

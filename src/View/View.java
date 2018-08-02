@@ -317,6 +317,7 @@ public class View extends javax.swing.JFrame {
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
             summary.createnoOfKeyWordsArray(search.getText());
+            summary.createIntersectionMatrixBaseOnKeyWords();
 
             // summary.init();
             // summary.extractSentenceFromContext();
