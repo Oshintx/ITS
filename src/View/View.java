@@ -58,6 +58,18 @@ public class View extends javax.swing.JFrame {
 
     }
 
+    public void removehighlights(JTextComponent txtAreaOutputDocument) {
+        Highlighter hilite = txtAreaOutputDocument.getHighlighter();
+        Highlighter.Highlight[] hilites = hilite.getHighlights();
+        for (int i = 0; i < hilites.length; i++) {
+
+            if (hilites[i].getPainter() instanceof MyHighLighterPainter) {
+                hilite.removeHighlight(hilites[i]);
+            }
+
+        }
+    }
+
     class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter {
 
         public MyHighLighterPainter(Color color) {
@@ -66,7 +78,7 @@ public class View extends javax.swing.JFrame {
     }
 
     public void highlight(JTextComponent txtAreaOutputDocument, String pattern) {
-
+        removehighlights(txtAreaOutputDocument);
         try {
 
             Highlighter hilite = txtAreaOutputDocument.getHighlighter();
@@ -331,25 +343,25 @@ public class View extends javax.swing.JFrame {
             summary.createIntersectionMatrix();
             summary.createDictionary();
             System.out.println("SUMMMARY");
-            summary.createSummary(this.calculatedPercentageLevel);
+         //   summary.createSummary(this.calculatedPercentageLevel);
             summary.printSummary();
             summary.printStats();
             summary.DictionaryOfParagraphNoAndSentence();
 
-            txtAreaOutputDocument.setText(summary.getFinalSummery());
+           // txtAreaOutputDocument.setText(summary.getFinalSummery());
             // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
 
             //// Summary base on key words-------------------.
-             summary.createnoOfKeyWordsArray(search.getText());
-             summary.createIntersectionMatrixBaseOnKeyWords();
-             summary.createDictionaryBaseOnKeyWords();
-            // summary.createSummaryBaseOnKeyWords();
-             summary.printSummaryBaseOnKeyWords();
-           // txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-           // highlightYellow(txtAreaOutputDocument,search.getText());
+            summary.createnoOfKeyWordsArray(search.getText());
+            summary.createIntersectionMatrixBaseOnKeyWords();
+            summary.createDictionaryBaseOnKeyWords();
+             summary.createSummaryBaseOnKeyWords();
+            summary.printSummaryBaseOnKeyWords();
+             txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+             highlightYellow(txtAreaOutputDocument,search.getText());
 //---------------------------------------Extra--------------------------------------
             // summary.init();
             // summary.extractSentenceFromContext();
@@ -374,7 +386,8 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
-//        how h = new how();
+        
+//how h = new how();
 //        h.setVisible(true);
 //        dispose();
     }//GEN-LAST:event_btnHowActionPerformed
