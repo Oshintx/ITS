@@ -19,7 +19,7 @@ public class View extends javax.swing.JFrame {
 
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
     Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
-    int calculatePercentageLevel;
+    int calculatedPercentageLevel;
 
     Algorithm summary = new Algorithm();
 
@@ -29,8 +29,6 @@ public class View extends javax.swing.JFrame {
 
     }
 
-    
-  
     public void switchScreens() {
         int selectedIndexHead = jTabbedPaneHead.getSelectedIndex();
         int selectedIndexSub = jTabbedPaneSub.getSelectedIndex();
@@ -52,11 +50,12 @@ public class View extends javax.swing.JFrame {
             jTabbedPaneSub.setEnabledAt(1, true);
         }
     }
-    public void calculatePercentageLevel(int currentPercentageLevel){
-        
-        this.calculatePercentageLevel=currentPercentageLevel/5;
-        System.out.println("calculated Percentage Level : "+this.calculatePercentageLevel);
-        
+
+    public void calculatePercentageLevel(int currentPercentageLevel) {
+
+        this.calculatedPercentageLevel = currentPercentageLevel / 5;
+        System.out.println("calculated Percentage Level : " + this.calculatedPercentageLevel);
+
     }
 
     class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter {
@@ -84,8 +83,8 @@ public class View extends javax.swing.JFrame {
         }
 
     }
-    
-     public void highlightYellow(JTextComponent txtAreaOutputDocument, String pattern) {
+
+    public void highlightYellow(JTextComponent txtAreaOutputDocument, String pattern) {
 
         try {
 
@@ -103,8 +102,6 @@ public class View extends javax.swing.JFrame {
         }
 
     }
-    
-    
 
 //    public void writeOriginalDocumentToFile() {
 //        try {
@@ -336,32 +333,27 @@ public class View extends javax.swing.JFrame {
             summary.createIntersectionMatrix();
             summary.createDictionary();
             System.out.println("SUMMMARY");
-            summary.createSummary();
+            summary.createSummary(this.calculatedPercentageLevel);
             summary.printSummary();
             summary.printStats();
             summary.DictionaryOfParagraphNoAndSentence();
             // summary.printDicationary();
 
-           // txtAreaOutputDocument.setText(summary.getFinalSummery());
-            txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
+            txtAreaOutputDocument.setText(summary.getFinalSummery());
+            // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
-         
-            
 
-            //base on key words.
-           // summary.createnoOfKeyWordsArray(search.getText());
-           // summary.createIntersectionMatrixBaseOnKeyWords();
-           // summary.createDictionaryBaseOnKeyWords();
-           // summary.createSummaryBaseOnKeyWords();
-          //  summary.printSummaryBaseOnKeyWords();
-           //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-          // highlightYellow(txtAreaOutputDocument,search.getText());
-        
-        
+            //// Summery base on key words-------------------.
+            // summary.createnoOfKeyWordsArray(search.getText());
+            // summary.createIntersectionMatrixBaseOnKeyWords();
+            // summary.createDictionaryBaseOnKeyWords();
+            // summary.createSummaryBaseOnKeyWords();
+            //  summary.printSummaryBaseOnKeyWords();
+            //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+            // highlightYellow(txtAreaOutputDocument,search.getText());
 //---------------------------------------Extra--------------------------------------
-            
             // summary.init();
             // summary.extractSentenceFromContext();
             //summary.groupSentencesIntoParagraphs();
@@ -391,14 +383,14 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHowActionPerformed
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
-        int currentPercentageLevel=Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
+        int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
         calculatePercentageLevel(currentPercentageLevel);
-        System.out.println("currentPercentageLevel"+currentPercentageLevel);
+        System.out.println("currentPercentageLevel" + currentPercentageLevel);
 
     }//GEN-LAST:event_cmbSelectPercentageLevelActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-                highlight(txtAreaInputDocument,search.getText());
+        highlight(txtAreaInputDocument, search.getText());
 
     }//GEN-LAST:event_jButton2ActionPerformed
 

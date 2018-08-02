@@ -309,10 +309,10 @@ public class Algorithm {
      * Create Summary base on no option
      */
     
-    public void createSummary() {
-
+    public void createSummary(int summeryLevel) {
+        System.out.println("summeryLevel"+summeryLevel);
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences
+            int primary_set = getParagraphs().get(j).getSentences().size() / summeryLevel;//find no of group of 5 sentences
              System.out.println("primary_set"+primary_set);
             //Sort based on score (importance)
             Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to(descending order) the score of a sentence(SentenceComparatorOnScore has a compare method to compare and collection has sort method to sort this)
