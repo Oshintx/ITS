@@ -309,10 +309,11 @@ public class Algorithm {
      * Create Summary base on no option
      */
     
-    public void createSummary() {
+    public void createSummary(int percentage) {
 
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            double primary_set = getParagraphs().get(j).getSentences().size() / 5.0;//find no of group of 5 sentences
+            
+            int primary_set = getParagraphs().get(j).getSentences().size() / percentage;//find no of group of 5 sentences
              System.out.println("primary_set"+primary_set);
             //Sort based on score (importance)
             Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to(descending order) the score of a sentence(SentenceComparatorOnScore has a compare method to compare and collection has sort method to sort this)
@@ -417,7 +418,9 @@ public class Algorithm {
         }
         setFinalSummery(sb.toString());
     }
-    
+    /**
+     * Print Summary base on keyword
+     */
     
      public void printSummaryBaseOnKeyWords() {
         
