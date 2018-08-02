@@ -42,11 +42,15 @@ public class Algorithm {
     private int noOfSentences;
     //contain no of paragraph in the context
     private int  noOfParagraphs;
-    
-    
+  
     private double[][] intersectionMatrix;
+   
     private int[] noOfKeyWords;
+    //Contain Sentences With Key Words.
+    private ArrayList<Sentence> sentencesWithKeyWords;
+    //Contain Sentences With Scores
     private LinkedHashMap<Sentence, Double> dictionary;
+    //Contain Sentences With paragraph no
     private LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence;
 
     private double Commpression;
@@ -67,6 +71,7 @@ public class Algorithm {
 
     public void init() {
         setSentences(new ArrayList<Sentence>());//this array list contain sentences in the context
+        setSentencesWithKeyWords(new ArrayList<Sentence>());
         setParagraphs(new ArrayList<Paragraph>());
         setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
         setDictionary(new LinkedHashMap<Sentence, Double>());
@@ -164,10 +169,26 @@ public class Algorithm {
 
         return commonCount;
     }
+    
+    
+    public int noOfKeyWords(Sentence str1, String keyWord) {
+        int keyWordCount = 0;
 
-    
-    
-    
+        for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
+
+            //  System.out.println(str1Word);
+
+                //   System.out.println(str2Word);
+                if (str1Word.compareToIgnoreCase(keyWord) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
+                    keyWordCount++;
+                    System.out.println("keyWordCount : "+keyWordCount);
+                }
+            
+        }
+
+        return keyWordCount;
+    }
+
     public void createIntersectionMatrix() {
         setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -188,8 +209,18 @@ public class Algorithm {
 
     }
     
-    public void createnoOfKeyWordsArray(){
+    public void createnoOfKeyWordsArray(String keyWord){
         setNoOfKeyWords(new int[getNoOfSentences()]);
+                for (int i = 0; i < getNoOfSentences(); i++) {
+                    
+                   Sentence str1 = getSentences().get(i);
+                    getNoOfKeyWords()[i]=noOfKeyWords(str1, keyWord);
+                    if(getNoOfKeyWords()[i]>0){
+                       getSentencesWithKeyWords().add(str1);
+                        
+                    }      
+                }
+                System.out.println("getSentencesWithKeyWords "+getSentencesWithKeyWords().size());
     }
     
 
@@ -504,6 +535,20 @@ public class Algorithm {
     }
 
    
+
+    /**
+     * @return the sentencesWithKeyWords
+     */
+    public ArrayList<Sentence> getSentencesWithKeyWords() {
+        return sentencesWithKeyWords;
+    }
+
+    /**
+     * @param sentencesWithKeyWords the sentencesWithKeyWords to set
+     */
+    public void setSentencesWithKeyWords(ArrayList<Sentence> sentencesWithKeyWords) {
+        this.sentencesWithKeyWords = sentencesWithKeyWords;
+    }
 
 
     

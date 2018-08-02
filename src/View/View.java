@@ -165,7 +165,7 @@ public class View extends javax.swing.JFrame {
         });
         jPanelWelcome.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 190, -1));
 
-        jButton2.setText("Enter the Key Word ");
+        jButton2.setText("Find Key Word");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -316,6 +316,7 @@ public class View extends javax.swing.JFrame {
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
+            summary.createnoOfKeyWordsArray(search.getText());
 
             // summary.init();
             // summary.extractSentenceFromContext();
@@ -351,6 +352,7 @@ public class View extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                 highlight(txtAreaInputDocument,search.getText());
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     public static void main(String args[]) {
