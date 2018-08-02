@@ -346,11 +346,11 @@ public class View extends javax.swing.JFrame {
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
 
             //// Summery base on key words-------------------.
-            // summary.createnoOfKeyWordsArray(search.getText());
-            // summary.createIntersectionMatrixBaseOnKeyWords();
-            // summary.createDictionaryBaseOnKeyWords();
-            // summary.createSummaryBaseOnKeyWords();
-            //  summary.printSummaryBaseOnKeyWords();
+             summary.createnoOfKeyWordsArray(search.getText());
+             summary.createIntersectionMatrixBaseOnKeyWords();
+             summary.createDictionaryBaseOnKeyWords();
+             summary.createSummaryBaseOnKeyWords();
+             summary.printSummaryBaseOnKeyWords();
             //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
             // highlightYellow(txtAreaOutputDocument,search.getText());
 //---------------------------------------Extra--------------------------------------
