@@ -18,6 +18,8 @@ import javax.swing.text.JTextComponent;
 public class View extends javax.swing.JFrame {
 
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
+    Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
+
 
     Algorithm summary = new Algorithm();
 
@@ -74,6 +76,27 @@ public class View extends javax.swing.JFrame {
         }
 
     }
+    
+     public void highlightYellow(JTextComponent txtAreaOutputDocument, String pattern) {
+
+        try {
+
+            Highlighter hilite = txtAreaOutputDocument.getHighlighter();
+            Document doc = txtAreaOutputDocument.getDocument();
+            String text = doc.getText(0, doc.getLength());
+            int pos = 0;//position
+
+            while ((pos = text.toUpperCase().indexOf(pattern.toUpperCase(), pos)) >= 0) {
+                hilite.addHighlight(pos, pos + pattern.length(), myHighlightPainterYellow);
+                pos += pattern.length();
+            }
+
+        } catch (Exception e) {
+        }
+
+    }
+    
+    
 
 //    public void writeOriginalDocumentToFile() {
 //        try {
@@ -311,14 +334,26 @@ public class View extends javax.swing.JFrame {
             summary.DictionaryOfParagraphNoAndSentence();
             // summary.printDicationary();
 
-            //txtAreaOutputDocument.setText(summary.getFinalSummery());
-             txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
+            txtAreaOutputDocument.setText(summary.getFinalSummery());
+             //txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
+         
+            
+
+            //base on key words.
             summary.createnoOfKeyWordsArray(search.getText());
             summary.createIntersectionMatrixBaseOnKeyWords();
-
+            summary.createDictionaryBaseOnKeyWords();
+            summary.createSummaryBaseOnKeyWords();
+            summary.printSummaryBaseOnKeyWords();
+           //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+          // highlightYellow(txtAreaOutputDocument,search.getText());
+        
+        
+//---------------------------------------Extra--------------------------------------
+            
             // summary.init();
             // summary.extractSentenceFromContext();
             //summary.groupSentencesIntoParagraphs();

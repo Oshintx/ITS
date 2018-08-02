@@ -22,6 +22,8 @@ import java.util.Set;
 
 public class Algorithm {
 
+   
+   
   
    Writer writer = null;
     private FileInputStream in;
@@ -30,8 +32,12 @@ public class Algorithm {
     private ArrayList<Sentence> sentences;
     //contain sentences in the summery
     private ArrayList<Sentence> contentSummary;
+     //contain sentences in the summery base on key word
+     private ArrayList<Sentence> contentSummaryBaseOnKeyWord;
     //contain final summery
     private String finalSummery;
+     //contain final summery base on keyword
+    private String finalSummeryBaseOnKeyWord;
     
     private String finaldictionaryOfParagraphNoAndSentence;
 
@@ -74,6 +80,7 @@ public class Algorithm {
         setSentencesWithKeyWords(new ArrayList<Sentence>());//this array list contain sentences with key words in the context
         setParagraphs(new ArrayList<Paragraph>());
         setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
+        setContentSummaryBaseOnKeyWord(new ArrayList<Sentence>());
         setDictionary(new LinkedHashMap<Sentence, Double>());
         setDictionaryOfParagraphNoAndSentence(new LinkedHashMap<Sentence, Integer>() );
         setNoOfSentences(0);
@@ -250,10 +257,10 @@ public class Algorithm {
                     Sentence str1 = getSentences().get(i);
                     Sentence str2 = getSentences().get(j);
                     getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.getNoOfWords() + str2.getNoOfWords()) / 2);
-                    //   System.out.println(intersectionMatrix[i][j]);   
+                  //    System.out.println("intersectionMatrix "+intersectionMatrix[i][j]);   
                 } else {
                     getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
-                    // System.out.println(intersectionMatrix[i][j]);   
+                     //System.out.println("intersectionMatrix"+intersectionMatrix[i][j]);   
                 }
 
             }
@@ -305,36 +312,37 @@ public class Algorithm {
     public void createSummary() {
 
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
-            //  System.out.println(primary_set);
+            double primary_set = getParagraphs().get(j).getSentences().size() / 5.0;//find no of group of 5 sentences
+             System.out.println("primary_set"+primary_set);
             //Sort based on score (importance)
-            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
-            for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
+            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to(descending order) the score of a sentence(SentenceComparatorOnScore has a compare method to compare and collection has sort method to sort this)
+            for (int i = 1; i <= primary_set; i++) {//from a one group select 2 sentences here i assign i to 1 then when there is sentences count belong to 5 there will not be any out put.
                 getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
+                System.out.println("hai catch the ssummery!");
             }
         }
 
         //To ensure proper ordering (order should be qual to the original context order)
-        Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
+        Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to comapare and collection has sort method to sort)
 
     }
     /**
      * Create Summary base on keyword
      */
     public void createSummaryBaseOnKeyWords() {
-
-        for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            int primary_set = getParagraphs().get(j).getSentences().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
-            //  System.out.println(primary_set);
+           int primary_set = getSentencesWithKeyWords().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+            System.out.println("primary_set"+primary_set);
             //Sort based on score (importance)
-            Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
+            Collections.sort(getSentencesWithKeyWords(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
             for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
-                getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
+              //  getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
+              getContentSummaryBaseOnKeyWord().add(getSentencesWithKeyWords().get(i));
             }
-        }
+            System.out.println("getContentSummaryBaseOnKeyWord() "+getContentSummaryBaseOnKeyWord().size());
+        
 
         //To ensure proper ordering (order should be qual to the original context order)
-        Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
+        Collections.sort(getContentSummaryBaseOnKeyWord(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
 
     }
     
@@ -390,6 +398,11 @@ public class Algorithm {
               setFinaldictionaryOfParagraphNoAndSentence(sb.toString());
               
 	}
+    
+     
+     /**
+      * Print Summary
+      */
     public void printSummary() {
         
        // System.out.println("no of paragraphs = " + getNoOfParagraphs());
@@ -404,6 +417,24 @@ public class Algorithm {
         }
         setFinalSummery(sb.toString());
     }
+    
+    
+     public void printSummaryBaseOnKeyWords() {
+        
+       // System.out.println("no of paragraphs = " + getNoOfParagraphs());
+        StringBuilder sb = new StringBuilder();
+        for (Sentence sentence : getContentSummaryBaseOnKeyWord()) {
+            sb.append(sentence.getValue());
+            sb.append("\n");
+           // sb.append("[\\r\\n]+");
+          // sb.toString().split("[\\r\\n]+");
+           // sb.append("......!");
+          //  System.out.println(sentence.value);
+        }
+        setFinalSummeryBaseOnKeyWord(sb.toString());
+    }
+    
+    
 
     public double getWordCount(ArrayList<Sentence> sentenceList) {//here find the total no of words in the summery
         double wordCount = 0.0;
@@ -632,6 +663,32 @@ public class Algorithm {
         this.sentencesWithKeyWords = sentencesWithKeyWords;
     }
 
+ /**
+     * @return the contentSummaryBaseOnKeyWord
+     */
+    public ArrayList<Sentence> getContentSummaryBaseOnKeyWord() {
+        return contentSummaryBaseOnKeyWord;
+    }
 
-    
+    /**
+     * @param contentSummaryBaseOnKeyWord the contentSummaryBaseOnKeyWord to set
+     */
+    public void setContentSummaryBaseOnKeyWord(ArrayList<Sentence> contentSummaryBaseOnKeyWord) {
+        this.contentSummaryBaseOnKeyWord = contentSummaryBaseOnKeyWord;
+    }
+
+     /**
+     * @return the finalSummeryBaseOnKeyWord
+     */
+    public String getFinalSummeryBaseOnKeyWord() {
+        return finalSummeryBaseOnKeyWord;
+    }
+
+    /**
+     * @param finalSummeryBaseOnKeyWord the finalSummeryBaseOnKeyWord to set
+     */
+    public void setFinalSummeryBaseOnKeyWord(String finalSummeryBaseOnKeyWord) {
+        this.finalSummeryBaseOnKeyWord = finalSummeryBaseOnKeyWord;
+    }
+
 }
