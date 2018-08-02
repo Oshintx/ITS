@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class Algorithm {
 
-   
+  
    Writer writer = null;
     private FileInputStream in;
     private FileOutputStream out;
@@ -45,6 +45,7 @@ public class Algorithm {
     
     
     private double[][] intersectionMatrix;
+    private int[] noOfKeyWords;
     private LinkedHashMap<Sentence, Double> dictionary;
     private LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence;
 
@@ -164,6 +165,9 @@ public class Algorithm {
         return commonCount;
     }
 
+    
+    
+    
     public void createIntersectionMatrix() {
         setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -183,6 +187,11 @@ public class Algorithm {
         }
 
     }
+    
+    public void createnoOfKeyWordsArray(){
+        setNoOfKeyWords(new int[getNoOfSentences()]);
+    }
+    
 
     public void createDictionary() {
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -216,9 +225,6 @@ public class Algorithm {
 
     }
     
-    public void printSentenecresWithParagraphNumber(){
-        
-    }
     
 
     public void printSentences() {
@@ -481,6 +487,20 @@ public class Algorithm {
      */
     public void setFinaldictionaryOfParagraphNoAndSentence(String finaldictionaryOfParagraphNoAndSentence) {
         this.finaldictionaryOfParagraphNoAndSentence = finaldictionaryOfParagraphNoAndSentence;
+    }
+
+     /**
+     * @return the noOfKeyWords
+     */
+    public int[] getNoOfKeyWords() {
+        return noOfKeyWords;
+    }
+
+    /**
+     * @param noOfKeyWords the noOfKeyWords to set
+     */
+    public void setNoOfKeyWords(int[] noOfKeyWords) {
+        this.noOfKeyWords = noOfKeyWords;
     }
 
    
