@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Algorithm;
+import Models.GCPTranslator;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
@@ -20,11 +21,12 @@ public class View extends javax.swing.JFrame {
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
     Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
     int calculatedPercentageLevel;
-
+    GCPTranslator GoogleTranslator = new GCPTranslator();
     Algorithm summary = new Algorithm();
 
     public View() {
         initComponents();
+        GoogleTranslator.setAPIKey("AIzaSyBkDmhg9CnD2zOjJX5nTpH64i8hRU2OmUM");  //Set API Key
         switchScreens();
 
     }
@@ -142,6 +144,9 @@ public class View extends javax.swing.JFrame {
         search = new javax.swing.JTextField();
         cmbSelectPercentageLevel = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
+        lblDetectedLanguage = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        btnTest = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -149,10 +154,8 @@ public class View extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
         lblCompressionRatio = new javax.swing.JLabel();
         lblNoOfParagraphsInContext = new javax.swing.JLabel();
-        lblNoOfParagraphsInSummary = new javax.swing.JLabel();
         lblNoOfWordsSummary = new javax.swing.JLabel();
         jLabel30 = new javax.swing.JLabel();
         lblNoOfWordsInContext1 = new javax.swing.JLabel();
@@ -195,7 +198,7 @@ public class View extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreaInputDocument);
 
         jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 930, 280));
-        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 150, -1));
+        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 150, -1));
 
         cmbSelectPercentageLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25", "50", "75", "100" }));
         cmbSelectPercentageLevel.addActionListener(new java.awt.event.ActionListener() {
@@ -203,7 +206,7 @@ public class View extends javax.swing.JFrame {
                 cmbSelectPercentageLevelActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 190, -1));
+        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 190, -1));
 
         jButton2.setText("Find Key Word");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -211,7 +214,25 @@ public class View extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 150, -1));
+        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 150, -1));
+
+        lblDetectedLanguage.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lblDetectedLanguage.setForeground(new java.awt.Color(204, 0, 0));
+        lblDetectedLanguage.setText("..");
+        jPanelWelcome.add(lblDetectedLanguage, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 430, 120, 20));
+
+        jLabel31.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel31.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel31.setText("Detected Language :");
+        jPanelWelcome.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 150, 20));
+
+        btnTest.setText("FinalDocument OK");
+        btnTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTestActionPerformed(evt);
+            }
+        });
+        jPanelWelcome.add(btnTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
@@ -228,12 +249,12 @@ public class View extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel25.setForeground(new java.awt.Color(255, 255, 255));
         jLabel25.setText("Commpression Ratio :");
-        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 430, 160, -1));
+        jPanel1.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 160, -1));
 
         jLabel26.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel26.setForeground(new java.awt.Color(255, 255, 255));
         jLabel26.setText("Number of words in Context(Input Document) :");
-        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, 340, -1));
+        jPanel1.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 360, 340, -1));
 
         jLabel27.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel27.setForeground(new java.awt.Color(255, 255, 255));
@@ -245,22 +266,13 @@ public class View extends javax.swing.JFrame {
         jLabel28.setText("Number of words in Summary(Output) :");
         jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 350, 290, -1));
 
-        jLabel29.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel29.setText("Number of  Paragraphs in Summary :");
-        jPanel1.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, 260, -1));
-
         lblCompressionRatio.setForeground(new java.awt.Color(204, 0, 0));
         lblCompressionRatio.setText("..");
-        jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 430, 170, -1));
+        jPanel1.add(lblCompressionRatio, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 380, 170, -1));
 
         lblNoOfParagraphsInContext.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfParagraphsInContext.setText("..");
         jPanel1.add(lblNoOfParagraphsInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, 90, -1));
-
-        lblNoOfParagraphsInSummary.setForeground(new java.awt.Color(204, 0, 0));
-        lblNoOfParagraphsInSummary.setText("..");
-        jPanel1.add(lblNoOfParagraphsInSummary, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 390, 120, -1));
 
         lblNoOfWordsSummary.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfWordsSummary.setText("..");
@@ -273,7 +285,7 @@ public class View extends javax.swing.JFrame {
 
         lblNoOfWordsInContext1.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfWordsInContext1.setText("..");
-        jPanel1.add(lblNoOfWordsInContext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 350, 110, -1));
+        jPanel1.add(lblNoOfWordsInContext1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, 110, -1));
 
         lblNoOfSentencesInContext.setForeground(new java.awt.Color(204, 0, 0));
         lblNoOfSentencesInContext.setText("..");
@@ -327,7 +339,8 @@ public class View extends javax.swing.JFrame {
             try {
                 File file = new File("context.txt");
                 FileWriter fileWriter = new FileWriter(file);
-                fileWriter.write(txtAreaInputDocument.getText());
+               // fileWriter.write(txtAreaInputDocument.getText());
+               fileWriter.write(GoogleTranslator.getTranslatedDocument());
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException e) {
@@ -343,12 +356,12 @@ public class View extends javax.swing.JFrame {
             summary.createIntersectionMatrix();
             summary.createDictionary();
             System.out.println("SUMMMARY");
-         //   summary.createSummary(this.calculatedPercentageLevel);
+            summary.createSummary(this.calculatedPercentageLevel);
             summary.printSummary();
             summary.printStats();
             summary.DictionaryOfParagraphNoAndSentence();
 
-           // txtAreaOutputDocument.setText(summary.getFinalSummery());
+            txtAreaOutputDocument.setText(summary.getFinalSummery());
             // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
@@ -358,10 +371,10 @@ public class View extends javax.swing.JFrame {
             summary.createnoOfKeyWordsArray(search.getText());
             summary.createIntersectionMatrixBaseOnKeyWords();
             summary.createDictionaryBaseOnKeyWords();
-             summary.createSummaryBaseOnKeyWords();
+            // summary.createSummaryBaseOnKeyWords();
             summary.printSummaryBaseOnKeyWords();
-             txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-             highlightYellow(txtAreaOutputDocument,search.getText());
+            //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+            //highlightYellow(txtAreaOutputDocument,search.getText());
 //---------------------------------------Extra--------------------------------------
             // summary.init();
             // summary.extractSentenceFromContext();
@@ -386,7 +399,7 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSummerizeActionPerformed
 
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
-        
+
 //how h = new how();
 //        h.setVisible(true);
 //        dispose();
@@ -403,6 +416,16 @@ public class View extends javax.swing.JFrame {
         highlight(txtAreaInputDocument, search.getText());
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
+        if (!txtAreaInputDocument.getText().isEmpty()) {
+            GoogleTranslator.setContextDocument(txtAreaInputDocument.getText());
+            GoogleTranslator.setTargetlanguage("en");
+            GoogleTranslator.TranslateText();
+            lblDetectedLanguage.setText(GoogleTranslator.getDetectedLanguage());
+        }
+
+    }//GEN-LAST:event_btnTestActionPerformed
 
     public static void main(String args[]) {
 
@@ -433,14 +456,15 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHow;
     private javax.swing.JButton btnSummerize;
+    private javax.swing.JButton btnTest;
     private javax.swing.JComboBox<String> cmbSelectPercentageLevel;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanelExit;
     private javax.swing.JPanel jPanelWelcome;
@@ -449,8 +473,8 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
     private javax.swing.JLabel lblCompressionRatio;
+    private javax.swing.JLabel lblDetectedLanguage;
     private javax.swing.JLabel lblNoOfParagraphsInContext;
-    private javax.swing.JLabel lblNoOfParagraphsInSummary;
     private javax.swing.JLabel lblNoOfSentencesInContext;
     private javax.swing.JLabel lblNoOfWordsInContext1;
     private javax.swing.JLabel lblNoOfWordsSummary;
