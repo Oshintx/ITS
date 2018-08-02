@@ -141,12 +141,13 @@ public class View extends javax.swing.JFrame {
         btnSummerize = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaInputDocument = new javax.swing.JTextArea();
-        search = new javax.swing.JTextField();
         cmbSelectPercentageLevel = new javax.swing.JComboBox<>();
-        jButton2 = new javax.swing.JButton();
+        btnFindKeyWord = new javax.swing.JButton();
         lblDetectedLanguage = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         btnTest = new javax.swing.JButton();
+        jSeparator14 = new javax.swing.JSeparator();
+        txtKeyword = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -198,23 +199,26 @@ public class View extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtAreaInputDocument);
 
         jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 930, 280));
-        jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 150, -1));
 
-        cmbSelectPercentageLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25", "50", "75", "100" }));
+        cmbSelectPercentageLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Precentage level ", "25", "50", "75", "100" }));
         cmbSelectPercentageLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbSelectPercentageLevelActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 190, -1));
+        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, 190, -1));
 
-        jButton2.setText("Find Key Word");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnFindKeyWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword.png"))); // NOI18N
+        btnFindKeyWord.setBorder(null);
+        btnFindKeyWord.setContentAreaFilled(false);
+        btnFindKeyWord.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
+        btnFindKeyWord.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword Rollover.png"))); // NOI18N
+        btnFindKeyWord.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnFindKeyWordActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 150, -1));
+        jPanelWelcome.add(btnFindKeyWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 70, -1));
 
         lblDetectedLanguage.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblDetectedLanguage.setForeground(new java.awt.Color(204, 0, 0));
@@ -233,6 +237,17 @@ public class View extends javax.swing.JFrame {
             }
         });
         jPanelWelcome.add(btnTest, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
+
+        jSeparator14.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator14.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelWelcome.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 90, 10));
+
+        txtKeyword.setBackground(new java.awt.Color(32, 33, 35));
+        txtKeyword.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
+        txtKeyword.setForeground(new java.awt.Color(255, 255, 255));
+        txtKeyword.setToolTipText("Enter Key word from your document");
+        txtKeyword.setBorder(null);
+        jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 90, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
@@ -339,8 +354,8 @@ public class View extends javax.swing.JFrame {
             try {
                 File file = new File("context.txt");
                 FileWriter fileWriter = new FileWriter(file);
-               // fileWriter.write(txtAreaInputDocument.getText());
-               fileWriter.write(GoogleTranslator.getTranslatedDocument());
+                // fileWriter.write(txtAreaInputDocument.getText());
+                fileWriter.write(GoogleTranslator.getTranslatedDocument());
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException e) {
@@ -368,7 +383,7 @@ public class View extends javax.swing.JFrame {
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
 
             //// Summary base on key words-------------------.
-            summary.createnoOfKeyWordsArray(search.getText());
+            summary.createnoOfKeyWordsArray(txtKeyword.getText());
             summary.createIntersectionMatrixBaseOnKeyWords();
             summary.createDictionaryBaseOnKeyWords();
             // summary.createSummaryBaseOnKeyWords();
@@ -406,16 +421,25 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHowActionPerformed
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
-        int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
-        calculatePercentageLevel(currentPercentageLevel);
-        System.out.println("currentPercentageLevel" + currentPercentageLevel);
+        if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
+            int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
+            calculatePercentageLevel(currentPercentageLevel);
+            System.out.println("currentPercentageLevel" + currentPercentageLevel);
+        } else {
+              JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+        }
+
 
     }//GEN-LAST:event_cmbSelectPercentageLevelActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        highlight(txtAreaInputDocument, search.getText());
+    private void btnFindKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindKeyWordActionPerformed
+        if (!txtKeyword.getText().isEmpty()) {
+            highlight(txtAreaInputDocument, txtKeyword.getText());
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+        } else {
+            JOptionPane.showMessageDialog(null, "Please Enter Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnFindKeyWordActionPerformed
 
     private void btnTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestActionPerformed
         if (!txtAreaInputDocument.getText().isEmpty()) {
@@ -454,11 +478,11 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFindKeyWord;
     private javax.swing.JButton btnHow;
     private javax.swing.JButton btnSummerize;
     private javax.swing.JButton btnTest;
     private javax.swing.JComboBox<String> cmbSelectPercentageLevel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
@@ -470,6 +494,7 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelWelcome;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JTabbedPane jTabbedPaneHead;
     private javax.swing.JTabbedPane jTabbedPaneSub;
     private javax.swing.JLabel lblCompressionRatio;
@@ -479,9 +504,9 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel lblNoOfWordsInContext1;
     private javax.swing.JLabel lblNoOfWordsSummary;
     private javax.swing.ButtonGroup radGrpGender;
-    private javax.swing.JTextField search;
     private javax.swing.JTextArea txtAreaInputDocument;
     private javax.swing.JTextArea txtAreaOutputDocument;
+    private javax.swing.JTextField txtKeyword;
     // End of variables declaration//GEN-END:variables
 
 }
