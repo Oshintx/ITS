@@ -146,20 +146,19 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBox1">
+                <Component class="javax.swing.JComboBox" name="cmbSelectPercentageLevel">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="5">
-                        <StringItem index="0" value="Select Precentage level"/>
-                        <StringItem index="1" value="25%"/>
-                        <StringItem index="2" value="50%"/>
-                        <StringItem index="3" value="75%"/>
-                        <StringItem index="4" value="100%"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="25"/>
+                        <StringItem index="1" value="50"/>
+                        <StringItem index="2" value="75"/>
+                        <StringItem index="3" value="100"/>
                       </StringArray>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbSelectPercentageLevelActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

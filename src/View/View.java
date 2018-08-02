@@ -19,7 +19,7 @@ public class View extends javax.swing.JFrame {
 
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
     Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
-
+    int calculatePercentageLevel;
 
     Algorithm summary = new Algorithm();
 
@@ -29,6 +29,8 @@ public class View extends javax.swing.JFrame {
 
     }
 
+    
+  
     public void switchScreens() {
         int selectedIndexHead = jTabbedPaneHead.getSelectedIndex();
         int selectedIndexSub = jTabbedPaneSub.getSelectedIndex();
@@ -49,6 +51,12 @@ public class View extends javax.swing.JFrame {
         if (selectedIndexSub == 1) {
             jTabbedPaneSub.setEnabledAt(1, true);
         }
+    }
+    public void calculatePercentageLevel(int currentPercentageLevel){
+        
+        this.calculatePercentageLevel=currentPercentageLevel/5;
+        System.out.println("calculated Percentage Level : "+this.calculatePercentageLevel);
+        
     }
 
     class MyHighLighterPainter extends DefaultHighlighter.DefaultHighlightPainter {
@@ -123,7 +131,7 @@ public class View extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaInputDocument = new javax.swing.JTextArea();
         search = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbSelectPercentageLevel = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -180,13 +188,13 @@ public class View extends javax.swing.JFrame {
         jPanelWelcome.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 930, 280));
         jPanelWelcome.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 150, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Precentage level", "25%", "50%", "75%", "100%" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        cmbSelectPercentageLevel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "25", "50", "75", "100" }));
+        cmbSelectPercentageLevel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                cmbSelectPercentageLevelActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 190, -1));
+        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 350, 190, -1));
 
         jButton2.setText("Find Key Word");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -382,9 +390,12 @@ public class View extends javax.swing.JFrame {
 //        dispose();
     }//GEN-LAST:event_btnHowActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
+        int currentPercentageLevel=Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
+        calculatePercentageLevel(currentPercentageLevel);
+        System.out.println("currentPercentageLevel"+currentPercentageLevel);
+
+    }//GEN-LAST:event_cmbSelectPercentageLevelActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
                 highlight(txtAreaInputDocument,search.getText());
@@ -420,8 +431,8 @@ public class View extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnHow;
     private javax.swing.JButton btnSummerize;
+    private javax.swing.JComboBox<String> cmbSelectPercentageLevel;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
