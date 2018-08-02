@@ -334,7 +334,7 @@ public class Algorithm {
             System.out.println("primary_set"+primary_set);
             //Sort based on score (importance)
             Collections.sort(getSentencesWithKeyWords(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
-            for (int i = 1; i <= primary_set; i++) {//from a one group select 2 sentences
+            for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
               //  getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
               getContentSummaryBaseOnKeyWord().add(getSentencesWithKeyWords().get(i));
             }

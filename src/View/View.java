@@ -327,8 +327,6 @@ public class View extends javax.swing.JFrame {
             lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
             lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
             lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
-
-            /////
             summary.groupSentencesIntoParagraphs();
             summary.createIntersectionMatrix();
             summary.createDictionary();
@@ -337,7 +335,6 @@ public class View extends javax.swing.JFrame {
             summary.printSummary();
             summary.printStats();
             summary.DictionaryOfParagraphNoAndSentence();
-            // summary.printDicationary();
 
             txtAreaOutputDocument.setText(summary.getFinalSummery());
             // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
@@ -345,14 +342,14 @@ public class View extends javax.swing.JFrame {
             summary.setCommpression();
             lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
 
-            //// Summery base on key words-------------------.
+            //// Summary base on key words-------------------.
              summary.createnoOfKeyWordsArray(search.getText());
              summary.createIntersectionMatrixBaseOnKeyWords();
              summary.createDictionaryBaseOnKeyWords();
-             summary.createSummaryBaseOnKeyWords();
+            // summary.createSummaryBaseOnKeyWords();
              summary.printSummaryBaseOnKeyWords();
-            //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-            // highlightYellow(txtAreaOutputDocument,search.getText());
+           // txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+           // highlightYellow(txtAreaOutputDocument,search.getText());
 //---------------------------------------Extra--------------------------------------
             // summary.init();
             // summary.extractSentenceFromContext();
