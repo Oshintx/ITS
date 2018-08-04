@@ -1,1 +1,4 @@
-The encoder RNN conceives a sequence of context tokens one at a time and updates its hidden state. After processing the whole context sequence, it produces a final hidden state, which incorporates the sense of context and is used for generating the answer.
+PROJECT BASED LEARNING
+In Project Based Learning (PBL), the teacher steps down from stage and in turn assigns projects to students. These projects usually encompass ideas that they will actually be dealing with in the real world. Projects can be done individually or in groups. In any case, this allows students to look for information they need themselves, instead of relying on the teacher for answers. If organized in groups, students get a chance to interact with their peers, pool in gathered information and come up with a working solution together, thus enhancing their social skills and teamwork through collaboration.  As a result, students not only get credit for their hard work, but also learn something in the process.
+On a completely subjective note, PBL is more effective than any quiz that a teacher may give in the classroom.
+

@@ -361,8 +361,8 @@ public class View extends javax.swing.JFrame {
             try {
                 File file = new File("context.txt");
                 FileWriter fileWriter = new FileWriter(file);
-                // fileWriter.write(txtAreaInputDocument.getText());
-                fileWriter.write(GoogleTranslator.getTranslatedDocument());
+                 fileWriter.write(txtAreaInputDocument.getText());
+              //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
                 fileWriter.flush();
                 fileWriter.close();
             } catch (IOException e) {
@@ -378,12 +378,11 @@ public class View extends javax.swing.JFrame {
             summary.createIntersectionMatrix();
             summary.createDictionary();
             System.out.println("SUMMMARY");
-            summary.createSummary(this.calculatedPercentageLevel);
+           // summary.createSummary(this.calculatedPercentageLevel);
             summary.printSummary();
-            summary.printStats();
-            summary.DictionaryOfParagraphNoAndSentence();
+           
 
-            txtAreaOutputDocument.setText(summary.getFinalSummery());
+           // txtAreaOutputDocument.setText(summary.getFinalSummery());
             // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
             lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
             summary.setCommpression();
@@ -393,10 +392,10 @@ public class View extends javax.swing.JFrame {
             summary.createnoOfKeyWordsArray(txtKeyword.getText());
             summary.createIntersectionMatrixBaseOnKeyWords();
             summary.createDictionaryBaseOnKeyWords();
-            // summary.createSummaryBaseOnKeyWords();
+             summary.createSummaryBaseOnKeyWords();
             summary.printSummaryBaseOnKeyWords();
-            //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-            //highlightYellow(txtAreaOutputDocument,search.getText());
+            txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+            highlightYellow(txtAreaOutputDocument,txtKeyword.getText());
 
 
 

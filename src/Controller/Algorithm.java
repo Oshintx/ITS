@@ -11,78 +11,71 @@ package Controller;
  */
 import Models.Sentence;
 import Models.Paragraph;
-import View.View;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
 
 public class Algorithm {
 
-   
-   
-  
-   Writer writer = null;
+    Writer writer = null;
     private FileInputStream in;
     private FileOutputStream out;
+
     //contain sentences in the context
     private ArrayList<Sentence> sentences;
-    //contain sentences in the summery
-    private ArrayList<Sentence> contentSummary;
-     //contain sentences in the summery base on key word
-     private ArrayList<Sentence> contentSummaryBaseOnKeyWord;
-    //contain final summery
-    private String finalSummery;
-     //contain final summery base on keyword
-    private String finalSummeryBaseOnKeyWord;
-    
-    private String finaldictionaryOfParagraphNoAndSentence;
-
+    //contain no of sentences in the contex
+    private int noOfSentences;
     //contain paragraphs in context
     private ArrayList<Paragraph> paragraphs;
-    //contain no of sentences in the context
-    
-    private int noOfSentences;
     //contain no of paragraph in the context
-    private int  noOfParagraphs;
-  
-    private double[][] intersectionMatrix;
-   
+    private int noOfParagraphs;
+
+    //contain sentences in the summery base on a percentage
+    private ArrayList<Sentence> contentSummary;
+    //contain final summery base base on a percentage
+    private String finalSummery;
+
+    //Store No Of key words in each senetnces od summarize base on key word
     private int[] noOfKeyWords;
     //Contain Sentences With Key Words in the context.
     private ArrayList<Sentence> sentencesWithKeyWords;
-    //Contain Sentences With Scores
-    private LinkedHashMap<Sentence, Double> dictionary;
-    //Contain Sentences With paragraph no
-    private LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence;
+    //contain sentences in the summery base on key word
+    private ArrayList<Sentence> contentSummaryBaseOnKeyWord;
+    //contain final summery base on keyword
+    private String finalSummeryBaseOnKeyWord;
 
+    //Used To Store Intersection Values of each Sentences in base on key word summarization and bse on percenteage summarization
+    private double[][] intersectionMatrix;
+    //Contain Sentences With Scores(Addition of intersection values of each sentence in base on key word summarization and bse on percenteage summarization)
+    private LinkedHashMap<Sentence, Double> dictionary;
+
+    //compration ratio
     private double Commpression;
-    
+
     public Algorithm() {
         this.in = null;
         this.out = null;
         this.noOfSentences = 0;
         this.noOfParagraphs = 0;
-        
+
         try {
-            
+
         } catch (Exception e) {
         }
-        
-        
+
     }
 
+    /**
+     * Initialize Attributes
+     */
     public void init() {
-        setSentences(new ArrayList<Sentence>());//this array list contain sentences in the context
-        setSentencesWithKeyWords(new ArrayList<Sentence>());//this array list contain sentences with key words in the context
+        setSentences(new ArrayList<Sentence>());
+        setSentencesWithKeyWords(new ArrayList<Sentence>());
         setParagraphs(new ArrayList<Paragraph>());
-        setContentSummary(new ArrayList<Sentence>());//this array list contain sentences in the summery
+        setContentSummary(new ArrayList<Sentence>());
         setContentSummaryBaseOnKeyWord(new ArrayList<Sentence>());
         setDictionary(new LinkedHashMap<Sentence, Double>());
-        setDictionaryOfParagraphNoAndSentence(new LinkedHashMap<Sentence, Integer>() );
         setNoOfSentences(0);
         setNoOfParagraphs(0);
         try {
@@ -94,12 +87,14 @@ public class Algorithm {
         }
     }
 
-    /*Extract sentences from the entire passage*/
-    public void extractSentenceFromContext() { 
+    /**
+     * Extract sentences from the entire passage
+     */
+    public void extractSentenceFromContext() {
         int nextChar, j = 0;
         int prevChar = -1;
         try {
-            while ((nextChar = getIn().read()) != -1) {                         
+            while ((nextChar = getIn().read()) != -1) {
                 j = 0;
                 char[] temp = new char[100000];
                 while ((char) nextChar != '.') {
@@ -108,7 +103,7 @@ public class Algorithm {
                     if ((nextChar = getIn().read()) == -1) {
                         break;
                     }
-                    if ((char) nextChar == '\n' && (char) prevChar == '\n') { 
+                    if ((char) nextChar == '\n' && (char) prevChar == '\n') {
                         setNoOfParagraphs(getNoOfParagraphs() + 1);
                     }
 
@@ -119,73 +114,66 @@ public class Algorithm {
                 setNoOfSentences(getNoOfSentences() + 1);
                 prevChar = nextChar;
             }
-              
+
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
+    /**
+     * Group Sentences In Original Context in to Paragraphs
+     */
     public void groupSentencesIntoParagraphs() {//from this methode take sentences with  paragraph number and group them with similar pargraph number
         int paraNum = 0;
         Paragraph paragraph = new Paragraph(0);
 
         for (int i = 0; i < getNoOfSentences(); i++) {
             if (getSentences().get(i).getParagraphNumber() == paraNum) {//check whether the selected sentence paragraph number similar to paraNum
-                System.out.println(getSentences().get(i));
-                System.out.println("paraNum"+paraNum);
-                System.out.println("paragaph number"+getSentences().get(i).getParagraphNumber());
-                                getDictionaryOfParagraphNoAndSentence().put(getSentences().get(i), paraNum);
-                               
 
                 //continue
             } else {
                 getParagraphs().add(paragraph);//if selected sentence paragraph number not similar to paraNum add prev created paragraph in paragraph list here.
                 paraNum++;//increase paraNum
-                System.out.println("paraNum"+paraNum);
-                 paragraph = new Paragraph(paraNum);//create new paragraph with new paraNum. 
-                System.out.println("paragaph number else part"+getSentences().get(i).getParagraphNumber());
-                getDictionaryOfParagraphNoAndSentence().put(getSentences().get(i),paraNum);
+                paragraph = new Paragraph(paraNum);//create new paragraph with new paraNum. 
 
-  }
+            }
 
             paragraph.getSentences().add(getSentences().get(i));//if selected sentence paragraph number similar to paraNum insert that selected sentence in to that paragraph sentnce array list.
-            System.out.println("paragraph no"+paragraph.getNumber());
 
         }
 
         getParagraphs().add(paragraph);
-        
+
     }
+
     /**
-     * check no of common words to create Intersection Matrix base on no option
+     * check no of common words to create Intersection Matrix base on a
+     * percentage
+     *
      * @param str1
      * @param str2
      * @return commonCount
      */
-
     public double noOfCommonWords(Sentence str1, Sentence str2) {
         double commonCount = 0;
 
         for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
 
-            //  System.out.println(str1Word);
             for (String str2Word : str2.getValue().split("\\s+")) {
 
-                //   System.out.println(str2Word);
                 if (str1Word.compareToIgnoreCase(str2Word) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
                     commonCount++;
-                    System.out.println("common count of key word base :"+commonCount);
                 }
             }
         }
 
         return commonCount;
     }
-    
-   /**
-    * Intersection Matrix base on no option
-    */
+
+    /**
+     * Intersection Matrix base on a percentage
+     */
     public void createIntersectionMatrix() {
         setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -195,60 +183,58 @@ public class Algorithm {
                     Sentence str1 = getSentences().get(i);
                     Sentence str2 = getSentences().get(j);
                     getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.getNoOfWords() + str2.getNoOfWords()) / 2);
-                    //   System.out.println(intersectionMatrix[i][j]);   
                 } else {
                     getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
-                    // System.out.println(intersectionMatrix[i][j]);   
                 }
 
             }
         }
 
     }
+
     /**
-     * check no of key words to create noOfKeyWordsArray 
+     * check no of key words to create noOfKeyWordsArray
+     *
      * @param str1
      * @param keyWord
      * @return keyWordCount
      */
-     
     public int noOfKeyWords(Sentence str1, String keyWord) {
         int keyWordCount = 0;
 
         for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
 
-            //  System.out.println(str1Word);
+            if (str1Word.compareToIgnoreCase(keyWord) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
+                keyWordCount++;
+            }
 
-                //   System.out.println(str2Word);
-                if (str1Word.compareToIgnoreCase(keyWord) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
-                    keyWordCount++;
-                    System.out.println("keyWordCount : "+keyWordCount);
-                }
-            
         }
 
         return keyWordCount;
     }
 
-    
-    public void createnoOfKeyWordsArray(String keyWord){
+    /**
+     * Store No Of Key Words In Each Sentences
+     *
+     * @param keyWord
+     */
+    public void createnoOfKeyWordsArray(String keyWord) {
         setNoOfKeyWords(new int[getNoOfSentences()]);
-                for (int i = 0; i < getNoOfSentences(); i++) {
-                    
-                   Sentence str1 = getSentences().get(i);
-                    getNoOfKeyWords()[i]=noOfKeyWords(str1, keyWord);
-                    if(getNoOfKeyWords()[i]>0){
-                       getSentencesWithKeyWords().add(str1);
-                        
-                    }      
-                }
-                System.out.println("getSentencesWithKeyWords "+getSentencesWithKeyWords().size());
+        for (int i = 0; i < getNoOfSentences(); i++) {
+
+            Sentence str1 = getSentences().get(i);
+            getNoOfKeyWords()[i] = noOfKeyWords(str1, keyWord);
+            if (getNoOfKeyWords()[i] > 0) {
+                getSentencesWithKeyWords().add(str1);
+
+            }
+        }
     }
-    
-/**
- * Intersection Matrix base on keyword
- */
-     public void createIntersectionMatrixBaseOnKeyWords() {
+
+    /**
+     * Intersection Matrix base on keyword
+     */
+    public void createIntersectionMatrixBaseOnKeyWords() {
         setIntersectionMatrix(new double[getSentencesWithKeyWords().size()][getSentencesWithKeyWords().size()]);//arr[i][j]
         for (int i = 0; i < getSentencesWithKeyWords().size(); i++) {
             for (int j = 0; j < getSentencesWithKeyWords().size(); j++) {
@@ -257,20 +243,17 @@ public class Algorithm {
                     Sentence str1 = getSentences().get(i);
                     Sentence str2 = getSentences().get(j);
                     getIntersectionMatrix()[i][j] = noOfCommonWords(str1, str2) / ((double) (str1.getNoOfWords() + str2.getNoOfWords()) / 2);
-                  //    System.out.println("intersectionMatrix "+intersectionMatrix[i][j]);   
                 } else {
                     getIntersectionMatrix()[i][j] = getIntersectionMatrix()[j][i];
-                     //System.out.println("intersectionMatrix"+intersectionMatrix[i][j]);   
                 }
 
             }
         }
 
     }
-    
-    
+
     /**
-     * Create Dictionary base on no option
+     * Create Dictionary base on a percentage
      */
     public void createDictionary() {
         for (int i = 0; i < getNoOfSentences(); i++) {
@@ -279,46 +262,38 @@ public class Algorithm {
                 score += getIntersectionMatrix()[i][j];//score=intersectionMatrix[i][j]+score;
 
             }
-            //System.out.println(score);
 
             getDictionary().put(getSentences().get(i), score);
             sentences.get(i).setScore(score);
-            // System.out.println(sentences.get(i).score);
         }
     }
+
     /**
      * Create Dictionary base on KeyWord
-    */
-     public void createDictionaryBaseOnKeyWords() {
+     */
+    public void createDictionaryBaseOnKeyWords() {
         for (int i = 0; i < getSentencesWithKeyWords().size(); i++) {
             double score = 0;
             for (int j = 0; j < getSentencesWithKeyWords().size(); j++) {
                 score += getIntersectionMatrix()[i][j];//score=intersectionMatrix[i][j]+score;
 
             }
-            //System.out.println(score);
 
             getDictionary().put(getSentencesWithKeyWords().get(i), score);
             getSentencesWithKeyWords().get(i).setScore(score);
-            //System.out.println(sentences.get(i).score);
         }
     }
 
-    
     /**
-     * Create Summary base on no option
+     * Create Summary base on a percentage
      */
-    
     public void createSummary(int summeryLevel) {
-        System.out.println("summeryLevel"+summeryLevel);
         for (int j = 0; j <= getNoOfParagraphs(); j++) {
-            int primary_set = getParagraphs().get(j).getSentences().size() / summeryLevel;//find no of group of 5 sentences
-             System.out.println("primary_set"+primary_set);
-            //Sort based on score (importance)
+            int primary_set = getParagraphs().get(j).getSentences().size() / summeryLevel;
+            //Sort based on score (importance)up of 5 sentences
             Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to(descending order) the score of a sentence(SentenceComparatorOnScore has a compare method to compare and collection has sort method to sort this)
             for (int i = 1; i <= primary_set; i++) {//from a one group select 2 sentences here i assign i to 1 then when there is sentences count belong to 5 there will not be any out put.
                 getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
-                System.out.println("hai catch the ssummery!");
             }
         }
 
@@ -326,117 +301,56 @@ public class Algorithm {
         Collections.sort(getContentSummary(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to comapare and collection has sort method to sort)
 
     }
+
     /**
      * Create Summary base on keyword
      */
     public void createSummaryBaseOnKeyWords() {
-           int primary_set = getSentencesWithKeyWords().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
-            System.out.println("primary_set"+primary_set);
-            //Sort based on score (importance)
-            Collections.sort(getSentencesWithKeyWords(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
-            for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
-              //  getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
-              getContentSummaryBaseOnKeyWord().add(getSentencesWithKeyWords().get(i));
-            }
-            System.out.println("getContentSummaryBaseOnKeyWord() "+getContentSummaryBaseOnKeyWord().size());
-        
+        int primary_set = getSentencesWithKeyWords().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+        Collections.sort(getSentencesWithKeyWords(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
+        for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
+            getContentSummaryBaseOnKeyWord().add(getSentencesWithKeyWords().get(i));
+        }
 
-        //To ensure proper ordering (order should be qual to the original context order)
         Collections.sort(getContentSummaryBaseOnKeyWord(), new SentenceComparatorForSummary());//sort here according to the sentence no(SentenceComparatorForSummary has a compare methode to do this)
 
     }
-    
-    
 
-    public void printSentences() {
-        for (Sentence sentence : getSentences()) {
-            System.out.println(sentence.getNumber() + " => " + sentence.getValue() + " => " + sentence.getStringLength() + " => " + sentence.getNoOfWords() + " => " + sentence.getParagraphNumber());
-        }
-    }
-
-    public void printIntersectionMatrix() {
-        for (int i = 0; i < getNoOfSentences(); i++) {
-            for (int j = 0; j < getNoOfSentences(); j++) {
-                System.out.print(getIntersectionMatrix()[i][j] + "    ");
-            }
-            System.out.print("\n");
-        }
-    }
-
-    public void printDicationary(){
-		  // Get a set of the entries
-	      Set set = dictionary.entrySet();
-	      // Get an iterator
-	      Iterator i = set.iterator();
-	      // Display elements
-	      while(i.hasNext()) {
-	         Map.Entry me = (Map.Entry)i.next();
-	         System.out.print(((Sentence)me.getKey()).value + ": ");
-	         System.out.println(me.getValue());
-	      }
-	}
-     public void DictionaryOfParagraphNoAndSentence(){
-	        StringBuilder sb = new StringBuilder();
-                 sb.append("   Sentence : ");
-                 sb.append("   Paragraph Number");
-                 sb.append("\n");
-                 sb.append("\n");
-         // Get a set of the entries
-	      Set set = dictionaryOfParagraphNoAndSentence.entrySet();
-	      // Get an iterator
-	      Iterator i = set.iterator();
-	      // Display elements
-	      while(i.hasNext()) {
-	         Map.Entry me = (Map.Entry)i.next();
-                 sb.append("   "+((Sentence)me.getKey()).value + ": ");
-                 sb.append("   "+me.getValue());
-                 sb.append("\n");
-                 sb.append("\n");
-//                 System.out.print(((Sentence)me.getKey()).value + ": ");
-//	         System.out.println(me.getValue());
-	      }
-              setFinaldictionaryOfParagraphNoAndSentence(sb.toString());
-              
-	}
-    
-     
-     /**
-      * Print Summary
-      */
+    /**
+     * Print Summary base on a percentage
+     */
     public void printSummary() {
-        
-       // System.out.println("no of paragraphs = " + getNoOfParagraphs());
         StringBuilder sb = new StringBuilder();
         for (Sentence sentence : getContentSummary()) {
             sb.append(sentence.getValue());
             sb.append("\n");
-           // sb.append("[\\r\\n]+");
-          // sb.toString().split("[\\r\\n]+");
-           // sb.append("......!");
-          //  System.out.println(sentence.value);
+
         }
         setFinalSummery(sb.toString());
     }
-    
-    
-     public void printSummaryBaseOnKeyWords() {
-        
-       // System.out.println("no of paragraphs = " + getNoOfParagraphs());
+
+    /**
+     * Print Summary base on a key word
+     */
+    public void printSummaryBaseOnKeyWords() {
+
         StringBuilder sb = new StringBuilder();
         for (Sentence sentence : getContentSummaryBaseOnKeyWord()) {
             sb.append(sentence.getValue());
             sb.append("\n");
-           // sb.append("[\\r\\n]+");
-          // sb.toString().split("[\\r\\n]+");
-           // sb.append("......!");
-          //  System.out.println(sentence.value);
+
         }
         setFinalSummeryBaseOnKeyWord(sb.toString());
     }
-    
-    
 
-    public double getWordCount(ArrayList<Sentence> sentenceList) {//here find the total no of words in the summery
+    /**
+     * Find Total no of word count in both summery(base on key word and
+     * percentage)
+     *
+     * @param sentenceList
+     * @return wordCount
+     */
+    public double getWordCount(ArrayList<Sentence> sentenceList) {
         double wordCount = 0.0;
         for (Sentence sentence : sentenceList) {
             wordCount += sentence.getNoOfWords();
@@ -444,14 +358,7 @@ public class Algorithm {
         return wordCount;
     }
 
-    public void printStats() {
-        System.out.println("number of words in Context : " + getWordCount(getSentences()));
-        System.out.println("number of words in Summary : " + getWordCount(getContentSummary()));
-        System.out.println("Commpression : " + getWordCount(getContentSummary()) / getWordCount(getSentences()));
-    }
-
-    
-    
+//Getters , Setters Starts Here
     /**
      * @return the in
      */
@@ -577,8 +484,8 @@ public class Algorithm {
     public void setDictionary(LinkedHashMap<Sentence, Double> dictionary) {
         this.dictionary = dictionary;
     }
-    
-     /**
+
+    /**
      * @return the finalSummery
      */
     public String getFinalSummery() {
@@ -591,8 +498,9 @@ public class Algorithm {
     public void setFinalSummery(String finalSummery) {
         this.finalSummery = finalSummery;
     }
- /**
-     * @return the Commpression
+
+    /**
+     * @return the Compression
      */
     public double getCommpression() {
         return Commpression;
@@ -602,38 +510,12 @@ public class Algorithm {
      * @param Commpression the Commpression to set
      */
     public void setCommpression() {
-        
-        this.Commpression= (getWordCount(getContentSummary()) / getWordCount(getSentences()));
-    
-    }
-     /**
-     * @return the dictionaryOfParagraphNoAndSentence
-     */
-    public LinkedHashMap<Sentence, Integer> getDictionaryOfParagraphNoAndSentence() {
-        return dictionaryOfParagraphNoAndSentence;
+
+        this.Commpression = (getWordCount(getContentSummary()) / getWordCount(getSentences()));
+
     }
 
     /**
-     * @param dictionaryOfParagraphNoAndSentence the dictionaryOfParagraphNoAndSentence to set
-     */
-    public void setDictionaryOfParagraphNoAndSentence(LinkedHashMap<Sentence, Integer> dictionaryOfParagraphNoAndSentence) {
-        this.dictionaryOfParagraphNoAndSentence = dictionaryOfParagraphNoAndSentence;
-    }
-     /**
-     * @return the finaldictionaryOfParagraphNoAndSentence
-     */
-    public String getFinaldictionaryOfParagraphNoAndSentence() {
-        return finaldictionaryOfParagraphNoAndSentence;
-    }
-
-    /**
-     * @param finaldictionaryOfParagraphNoAndSentence the finaldictionaryOfParagraphNoAndSentence to set
-     */
-    public void setFinaldictionaryOfParagraphNoAndSentence(String finaldictionaryOfParagraphNoAndSentence) {
-        this.finaldictionaryOfParagraphNoAndSentence = finaldictionaryOfParagraphNoAndSentence;
-    }
-
-     /**
      * @return the noOfKeyWords
      */
     public int[] getNoOfKeyWords() {
@@ -646,8 +528,6 @@ public class Algorithm {
     public void setNoOfKeyWords(int[] noOfKeyWords) {
         this.noOfKeyWords = noOfKeyWords;
     }
-
-   
 
     /**
      * @return the sentencesWithKeyWords
@@ -663,7 +543,7 @@ public class Algorithm {
         this.sentencesWithKeyWords = sentencesWithKeyWords;
     }
 
- /**
+    /**
      * @return the contentSummaryBaseOnKeyWord
      */
     public ArrayList<Sentence> getContentSummaryBaseOnKeyWord() {
@@ -677,7 +557,7 @@ public class Algorithm {
         this.contentSummaryBaseOnKeyWord = contentSummaryBaseOnKeyWord;
     }
 
-     /**
+    /**
      * @return the finalSummeryBaseOnKeyWord
      */
     public String getFinalSummeryBaseOnKeyWord() {
