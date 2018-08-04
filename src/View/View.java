@@ -2,10 +2,17 @@ package View;
 
 import Controller.Algorithm;
 import Models.GCPTranslator;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Document;
@@ -390,6 +397,9 @@ public class View extends javax.swing.JFrame {
             summary.printSummaryBaseOnKeyWords();
             //txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
             //highlightYellow(txtAreaOutputDocument,search.getText());
+
+
+
 //---------------------------------------Extra--------------------------------------
             // summary.init();
             // summary.extractSentenceFromContext();
@@ -415,9 +425,21 @@ public class View extends javax.swing.JFrame {
 
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
 
-//how h = new how();
-//        h.setVisible(true);
-//        dispose();
+        try {
+            com.itextpdf.text.Document doc=new com.itextpdf.text.Document();
+            try {
+                PdfWriter.getInstance(doc, new FileOutputStream("Report.pdf"));
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            doc.open();
+            doc.add(new Paragraph(txtAreaOutputDocument.getText().toString()));
+            doc.close();
+            JOptionPane.showMessageDialog(null, "Report Generated successfully ! ", " ITS ", JOptionPane.DEFAULT_OPTION);
+
+        } catch (DocumentException ex) {
+            Logger.getLogger(View.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnHowActionPerformed
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
