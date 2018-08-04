@@ -305,8 +305,8 @@ public class Algorithm {
     /**
      * Create Summary base on keyword
      */
-    public void createSummaryBaseOnKeyWords() {
-        int primary_set = getSentencesWithKeyWords().size() / 5;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
+    public void createSummaryBaseOnKeyWords(int summeryLevel) {
+        int primary_set = getSentencesWithKeyWords().size() / summeryLevel;//find no of group of 5 sentences.ex:if has 17 sentences in a paragraph we select  4 group of sentences for summery
         Collections.sort(getSentencesWithKeyWords(), new SentenceComparatorOnScore());//sort here according to the score of a sentence(SentenceComparatorOnScore has a compare to do this)
         for (int i = 0; i <= primary_set; i++) {//from a one group select 2 sentences
             getContentSummaryBaseOnKeyWord().add(getSentencesWithKeyWords().get(i));

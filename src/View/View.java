@@ -1,6 +1,7 @@
 package View;
 
 import Controller.Algorithm;
+import Controller.Validator;
 import Models.GCPTranslator;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
@@ -25,12 +26,15 @@ import javax.swing.text.JTextComponent;
  */
 public class View extends javax.swing.JFrame {
 
+    Algorithm summary = new Algorithm();
+    Validator validator = new Validator();
+    public int calculatedPercentageLevel;
+    public boolean status;
+
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
     Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
-    int calculatedPercentageLevel;
     GCPTranslator GoogleTranslator = new GCPTranslator();
-    Algorithm summary = new Algorithm();
-    boolean status;
+
     public View() {
         initComponents();
         GoogleTranslator.setAPIKey("AIzaSyBkDmhg9CnD2zOjJX5nTpH64i8hRU2OmUM");  //Set API Key
@@ -65,6 +69,49 @@ public class View extends javax.swing.JFrame {
         this.calculatedPercentageLevel = currentPercentageLevel / 5;
         System.out.println("calculated Percentage Level : " + this.calculatedPercentageLevel);
 
+    }
+
+    public void createSummeryBaseOnPercentage() {
+        if (!txtAreaInputDocument.getText().isEmpty()) {
+            try {
+                File file = new File("context.txt");
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write(txtAreaInputDocument.getText());
+                //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            summary.init();
+            summary.extractSentenceFromContext();
+            summary.groupSentencesIntoParagraphs();
+            summary.createIntersectionMatrix();
+            summary.createDictionary();
+
+        }
+    }
+
+    public void createSummeryBaseOnKeyWords() {
+        if (!txtAreaInputDocument.getText().isEmpty()) {
+            try {
+                File file = new File("context.txt");
+                FileWriter fileWriter = new FileWriter(file);
+                fileWriter.write(txtAreaInputDocument.getText());
+                //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            summary.init();
+            summary.extractSentenceFromContext();
+            summary.groupSentencesIntoParagraphs();
+            summary.createnoOfKeyWordsArray(txtKeyword.getText());
+            summary.createIntersectionMatrixBaseOnKeyWords();
+            summary.createDictionaryBaseOnKeyWords();
+
+        }
     }
 
     public void removehighlights(JTextComponent txtAreaOutputDocument) {
@@ -254,6 +301,11 @@ public class View extends javax.swing.JFrame {
         txtKeyword.setForeground(new java.awt.Color(255, 255, 255));
         txtKeyword.setToolTipText("Enter Key word from your document");
         txtKeyword.setBorder(null);
+        txtKeyword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtKeywordActionPerformed(evt);
+            }
+        });
         jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 90, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
@@ -358,47 +410,43 @@ public class View extends javax.swing.JFrame {
 
         if (!txtAreaInputDocument.getText().isEmpty()) {
 
-            try {
-                File file = new File("context.txt");
-                FileWriter fileWriter = new FileWriter(file);
-                 fileWriter.write(txtAreaInputDocument.getText());
-              //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            summary.init();
-            summary.extractSentenceFromContext();
-            lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
-            lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
-            lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
-            summary.groupSentencesIntoParagraphs();
-            summary.createIntersectionMatrix();
-            summary.createDictionary();
-            System.out.println("SUMMMARY");
-           // summary.createSummary(this.calculatedPercentageLevel);
-            summary.printSummary();
-           
-
-           // txtAreaOutputDocument.setText(summary.getFinalSummery());
+//            try {
+//                File file = new File("context.txt");
+//                FileWriter fileWriter = new FileWriter(file);
+//                fileWriter.write(txtAreaInputDocument.getText());
+//                //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
+//                fileWriter.flush();
+//                fileWriter.close();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            summary.init();
+//            summary.extractSentenceFromContext();
+//            lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
+//            lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
+//            lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
+//            summary.groupSentencesIntoParagraphs();
+//            summary.createIntersectionMatrix();
+//            summary.createDictionary();
+//            System.out.println("SUMMMARY");
+//            // summary.createSummary(this.calculatedPercentageLevel);
+//            summary.printSummary();
+            // txtAreaOutputDocument.setText(summary.getFinalSummery());
             // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
-            lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
-            summary.setCommpression();
-            lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
-
+//            lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
+//            summary.setCommpression();
+//            lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
             //// Summary base on key words-------------------.
-            summary.createnoOfKeyWordsArray(txtKeyword.getText());
-            summary.createIntersectionMatrixBaseOnKeyWords();
-            summary.createDictionaryBaseOnKeyWords();
-             summary.createSummaryBaseOnKeyWords();
-            summary.printSummaryBaseOnKeyWords();
-            txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-            highlightYellow(txtAreaOutputDocument,txtKeyword.getText());
+//            summary.createnoOfKeyWordsArray(txtKeyword.getText());
+//            summary.createIntersectionMatrixBaseOnKeyWords();
+//            summary.createDictionaryBaseOnKeyWords();
+//            summary.createSummaryBaseOnKeyWords();
+            if (this.status) {
 
-
-
+                summary.printSummaryBaseOnKeyWords();
+                txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
+                highlightYellow(txtAreaOutputDocument, txtKeyword.getText());
+            }
 //---------------------------------------Extra--------------------------------------
             // summary.init();
             // summary.extractSentenceFromContext();
@@ -417,7 +465,7 @@ public class View extends javax.swing.JFrame {
             switchScreens();
 
         } else {
-            JOptionPane.showMessageDialog(null, "Please place your summery here !", " ITS ", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please place a document to summarize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
 
     }//GEN-LAST:event_btnSummerizeActionPerformed
@@ -425,7 +473,7 @@ public class View extends javax.swing.JFrame {
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
 
         try {
-            com.itextpdf.text.Document doc=new com.itextpdf.text.Document();
+            com.itextpdf.text.Document doc = new com.itextpdf.text.Document();
             try {
                 PdfWriter.getInstance(doc, new FileOutputStream("Report.pdf"));
             } catch (FileNotFoundException ex) {
@@ -442,31 +490,39 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHowActionPerformed
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
-       
-        if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
-        if(!this.status){
-             int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
-            calculatePercentageLevel(currentPercentageLevel);
-            System.out.println("currentPercentageLevel" + currentPercentageLevel);
-        }
-        else{
-             
-            JOptionPane.showMessageDialog(null, "A percentage can not be added to summarize a basis on a keyword", " ITS ", JOptionPane.ERROR_MESSAGE);
+        if (!txtAreaInputDocument.getText().isEmpty()) {
 
-        }
-           
+            if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
+                createSummeryBaseOnKeyWords();
+                validator.checkNoOfSentencesWithKeyWord(this.summary);
+                if (validator.getAllowePercentage().equals("Allowe Percentage 25")) {
+                    if (cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                        JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                    } else {
+                        calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                        summary.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                    }
+
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+            }
+
         } else {
-              JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, "Please place a document to summarize", " ITS ", JOptionPane.ERROR_MESSAGE);
+
         }
-
-
     }//GEN-LAST:event_cmbSelectPercentageLevelActionPerformed
 
     private void btnFindKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindKeyWordActionPerformed
         if (!txtKeyword.getText().isEmpty()) {
             highlight(txtAreaInputDocument, txtKeyword.getText());
-            status=true;
-            
+            status = true;
+
         } else {
             JOptionPane.showMessageDialog(null, "Please Enter Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
@@ -478,9 +534,16 @@ public class View extends javax.swing.JFrame {
             GoogleTranslator.setTargetlanguage("en");
             GoogleTranslator.TranslateText();
             lblDetectedLanguage.setText(GoogleTranslator.getDetectedLanguage());
+        } else {
+            JOptionPane.showMessageDialog(null, "Please place a document to summarize", " ITS ", JOptionPane.ERROR_MESSAGE);
+
         }
 
     }//GEN-LAST:event_btnTestActionPerformed
+
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKeywordActionPerformed
 
     public static void main(String args[]) {
 
