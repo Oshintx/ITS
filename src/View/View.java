@@ -26,10 +26,11 @@ import javax.swing.text.JTextComponent;
  */
 public class View extends javax.swing.JFrame {
 
-    Algorithm summary = new Algorithm();
+    Algorithm algorithm = new Algorithm();
     Validator validator = new Validator();
     public int calculatedPercentageLevel;
-    public boolean status;
+    public boolean status = false;
+    public boolean status2 = false;
 
     Highlighter.HighlightPainter myHighlightPainter = new MyHighLighterPainter(Color.red);
     Highlighter.HighlightPainter myHighlightPainterYellow = new MyHighLighterPainter(Color.yellow);
@@ -58,6 +59,9 @@ public class View extends javax.swing.JFrame {
 
         if (selectedIndexSub == 0) {
             jTabbedPaneSub.setEnabledAt(1, false);
+            if (!txtKeyword.getText().isEmpty()) {
+                this.status = true;
+            }
         }
         if (selectedIndexSub == 1) {
             jTabbedPaneSub.setEnabledAt(1, true);
@@ -71,7 +75,7 @@ public class View extends javax.swing.JFrame {
 
     }
 
-    public void createSummeryBaseOnPercentage() {
+    public void SummeryBaseOnPercentage() {
         if (!txtAreaInputDocument.getText().isEmpty()) {
             try {
                 File file = new File("context.txt");
@@ -83,16 +87,16 @@ public class View extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            summary.init();
-            summary.extractSentenceFromContext();
-            summary.groupSentencesIntoParagraphs();
-            summary.createIntersectionMatrix();
-            summary.createDictionary();
+            algorithm.init();
+            algorithm.extractSentenceFromContext();
+            algorithm.groupSentencesIntoParagraphs();
+            algorithm.createIntersectionMatrix();
+            algorithm.createDictionary();
 
         }
     }
 
-    public void createSummeryBaseOnKeyWords() {
+    public void SummeryBaseOnKeyWords() {
         if (!txtAreaInputDocument.getText().isEmpty()) {
             try {
                 File file = new File("context.txt");
@@ -104,12 +108,12 @@ public class View extends javax.swing.JFrame {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            summary.init();
-            summary.extractSentenceFromContext();
-            summary.groupSentencesIntoParagraphs();
-            summary.createnoOfKeyWordsArray(txtKeyword.getText());
-            summary.createIntersectionMatrixBaseOnKeyWords();
-            summary.createDictionaryBaseOnKeyWords();
+            algorithm.init();
+            algorithm.extractSentenceFromContext();
+            algorithm.groupSentencesIntoParagraphs();
+            algorithm.createnoOfKeyWordsArray(txtKeyword.getText());
+            algorithm.createIntersectionMatrixBaseOnKeyWords();
+            algorithm.createDictionaryBaseOnKeyWords();
 
         }
     }
@@ -294,19 +298,39 @@ public class View extends javax.swing.JFrame {
 
         jSeparator14.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator14.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelWelcome.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 390, 90, 10));
+        jPanelWelcome.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 130, 10));
 
         txtKeyword.setBackground(new java.awt.Color(32, 33, 35));
         txtKeyword.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txtKeyword.setForeground(new java.awt.Color(255, 255, 255));
         txtKeyword.setToolTipText("Enter Key word from your document");
         txtKeyword.setBorder(null);
+        txtKeyword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtKeywordMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                txtKeywordMouseReleased(evt);
+            }
+        });
+        txtKeyword.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+                txtKeywordInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
+        });
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKeywordActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 370, 90, -1));
+        txtKeyword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtKeywordKeyTyped(evt);
+            }
+        });
+        jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 130, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
@@ -409,43 +433,36 @@ public class View extends javax.swing.JFrame {
     private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
 
         if (!txtAreaInputDocument.getText().isEmpty()) {
+            if (calculatedPercentageLevel != 0) {
+                System.out.println("status" + this.status);
+                if (this.status) {
 
-//            try {
-//                File file = new File("context.txt");
-//                FileWriter fileWriter = new FileWriter(file);
-//                fileWriter.write(txtAreaInputDocument.getText());
-//                //  fileWriter.write(GoogleTranslator.getTranslatedDocument());
-//                fileWriter.flush();
-//                fileWriter.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            summary.init();
-//            summary.extractSentenceFromContext();
-//            lblNoOfSentencesInContext.setText(Integer.toString(summary.getNoOfSentences()));
-//            lblNoOfParagraphsInContext.setText(Integer.toString(summary.getNoOfParagraphs() + 1));
-//            lblNoOfWordsInContext1.setText(Double.toString(summary.getWordCount(summary.getSentences())));
-//            summary.groupSentencesIntoParagraphs();
-//            summary.createIntersectionMatrix();
-//            summary.createDictionary();
-//            System.out.println("SUMMMARY");
-//            // summary.createSummary(this.calculatedPercentageLevel);
-//            summary.printSummary();
-            // txtAreaOutputDocument.setText(summary.getFinalSummery());
-            // txtAreaOutputDocument.setText(summary.getFinaldictionaryOfParagraphNoAndSentence());
-//            lblNoOfWordsSummary.setText(Double.toString(summary.getWordCount(summary.getContentSummary())));
-//            summary.setCommpression();
-//            lblCompressionRatio.setText(Double.toString(summary.getCommpression()));
-            //// Summary base on key words-------------------.
-//            summary.createnoOfKeyWordsArray(txtKeyword.getText());
-//            summary.createIntersectionMatrixBaseOnKeyWords();
-//            summary.createDictionaryBaseOnKeyWords();
-//            summary.createSummaryBaseOnKeyWords();
-            if (this.status) {
+                    algorithm.printSummaryBaseOnKeyWords();
+                    txtAreaOutputDocument.setText(algorithm.getFinalSummeryBaseOnKeyWord());
+                    highlightYellow(txtAreaOutputDocument, txtKeyword.getText());
+                    this.status = false;
+                    switchScreens();
+                    jTabbedPaneSub.setSelectedIndex(1);
+                    calculatedPercentageLevel = 0;
+                } ////                if (!status2) {
+                ////                    if (!txtKeyword.getText().isEmpty()) {
+                ////                        JOptionPane.showMessageDialog(null, "Please Confirmr Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+                ////                    }
+                ////                } //            
+                else {
+                    algorithm.printSummary();
+                    txtAreaOutputDocument.setText(algorithm.getFinalSummery());
+                    lblNoOfWordsSummary.setText(Double.toString(algorithm.getWordCount(algorithm.getContentSummary())));
+                    algorithm.setCommpression();
+                    algorithm.setCommpression();
+                    lblCompressionRatio.setText(Double.toString(algorithm.getCommpression()));
+                    switchScreens();
+                    jTabbedPaneSub.setSelectedIndex(1);
+                    calculatedPercentageLevel = 0;
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Please Select a Percentage To Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
 
-                summary.printSummaryBaseOnKeyWords();
-                txtAreaOutputDocument.setText(summary.getFinalSummeryBaseOnKeyWord());
-                highlightYellow(txtAreaOutputDocument, txtKeyword.getText());
             }
 //---------------------------------------Extra--------------------------------------
             // summary.init();
@@ -461,8 +478,6 @@ public class View extends javax.swing.JFrame {
             //System.out.println("INTERSECTION MATRIX");
             // summary.printIntersectionMatrix();
             //Go To Output Tab
-            jTabbedPaneSub.setSelectedIndex(1);
-            switchScreens();
 
         } else {
             JOptionPane.showMessageDialog(null, "Please place a document to summarize", " ITS ", JOptionPane.ERROR_MESSAGE);
@@ -491,24 +506,132 @@ public class View extends javax.swing.JFrame {
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
         if (!txtAreaInputDocument.getText().isEmpty()) {
+            if (this.status && !txtKeyword.getText().isEmpty()) {
 
-            if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
-                createSummeryBaseOnKeyWords();
-                validator.checkNoOfSentencesWithKeyWord(this.summary);
-                if (validator.getAllowePercentage().equals("Allowe Percentage 25")) {
-                    if (cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
-                        JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+                if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
+                    SummeryBaseOnKeyWords();
+                    validator.checkNoOfSentencesWithKeyWord(this.algorithm);
+                    if (validator.getAllowePercentage().equals("Not Allowe any Percentage")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 1 || cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "Too small To Summarize Basis On Given Keyword  Try Again With a Differnt Key Word  ", " ITS ", JOptionPane.ERROR_MESSAGE);
 
-                    } else {
-                        calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
-                        summary.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                        }
 
                     }
 
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 25")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25 & 75")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25 & 75 && 100")) {
+
+                        calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                        algorithm.createSummaryBaseOnKeyWords(this.calculatedPercentageLevel);
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if (!this.status || txtKeyword.getText().isEmpty()) {
+
+                if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
+                    SummeryBaseOnPercentage();
+                    validator.checkNoOfSentencesWithPercentageSummarization(this.algorithm);
+                    System.out.println("statusOf validator  " + validator.getAllowePercentage());
+
+                    if (validator.getAllowePercentage().equals("Not Allowe any Percentage")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 1 || cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "Too small To Summarize Basis On Given Keyword  Try Again With a Differnt Key Word  ", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummary(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 25")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given document", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummary(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25")) {
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummary(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25 & 75")) {
+                        System.out.println("Come In To The Methode");
+                        if (cmbSelectPercentageLevel.getSelectedIndex() == 4) {
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+                        } else {
+                            calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                            algorithm.createSummary(this.calculatedPercentageLevel);
+
+                        }
+
+                    }
+                    if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25 & 75 && 100")) {
+
+                        calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
+                        algorithm.createSummary(this.calculatedPercentageLevel);
+
+                    }
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
                 }
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
             }
 
         } else {
@@ -520,9 +643,14 @@ public class View extends javax.swing.JFrame {
 
     private void btnFindKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindKeyWordActionPerformed
         if (!txtKeyword.getText().isEmpty()) {
-            highlight(txtAreaInputDocument, txtKeyword.getText());
-            status = true;
+            int yesNo = JOptionPane.showConfirmDialog(null, "Do you really want to Select This Key Word?", "Select Key Word", JOptionPane.YES_NO_OPTION);
 
+            highlight(txtAreaInputDocument, txtKeyword.getText());
+            if (yesNo == 0) {
+                status = true;
+                status2 = true;
+                JOptionPane.showMessageDialog(null, "Key Word Confirmed", " ITS ", JOptionPane.DEFAULT_OPTION);
+            }
         } else {
             JOptionPane.showMessageDialog(null, "Please Enter Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
@@ -542,8 +670,20 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnTestActionPerformed
 
     private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtKeywordActionPerformed
+
+    private void txtKeywordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeywordKeyTyped
+    }//GEN-LAST:event_txtKeywordKeyTyped
+
+    private void txtKeywordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKeywordMousePressed
+    }//GEN-LAST:event_txtKeywordMousePressed
+
+    private void txtKeywordMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKeywordMouseReleased
+     }//GEN-LAST:event_txtKeywordMouseReleased
+
+    private void txtKeywordInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtKeywordInputMethodTextChanged
+     }//GEN-LAST:event_txtKeywordInputMethodTextChanged
 
     public static void main(String args[]) {
 
