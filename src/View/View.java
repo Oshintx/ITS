@@ -30,7 +30,7 @@ public class View extends javax.swing.JFrame {
     int calculatedPercentageLevel;
     GCPTranslator GoogleTranslator = new GCPTranslator();
     Algorithm summary = new Algorithm();
-
+    boolean status;
     public View() {
         initComponents();
         GoogleTranslator.setAPIKey("AIzaSyBkDmhg9CnD2zOjJX5nTpH64i8hRU2OmUM");  //Set API Key
@@ -442,10 +442,19 @@ public class View extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHowActionPerformed
 
     private void cmbSelectPercentageLevelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectPercentageLevelActionPerformed
+       
         if (cmbSelectPercentageLevel.getSelectedIndex() != 0) {
-            int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
+        if(!this.status){
+             int currentPercentageLevel = Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString());
             calculatePercentageLevel(currentPercentageLevel);
             System.out.println("currentPercentageLevel" + currentPercentageLevel);
+        }
+        else{
+             
+            JOptionPane.showMessageDialog(null, "A percentage can not be added to summarize a basis on a keyword", " ITS ", JOptionPane.ERROR_MESSAGE);
+
+        }
+           
         } else {
               JOptionPane.showMessageDialog(null, "Please Select Percentage level to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
@@ -456,7 +465,8 @@ public class View extends javax.swing.JFrame {
     private void btnFindKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindKeyWordActionPerformed
         if (!txtKeyword.getText().isEmpty()) {
             highlight(txtAreaInputDocument, txtKeyword.getText());
-
+            status=true;
+            
         } else {
             JOptionPane.showMessageDialog(null, "Please Enter Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
