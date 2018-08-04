@@ -20,6 +20,30 @@ public class Validator {
 
     public void checkNoOfSentencesWithKeyWord(Algorithm algorithm) {
         this.algorithm = algorithm;
+
+        if (algorithm.getNoOfSentences() < 5) {
+            this.setAllowePercentage("Not Allowe any Percentage");
+        }
+
+        if (algorithm.getNoOfSentences() >= 5.0 && algorithm.getNoOfSentences() < 10) {
+            this.setAllowePercentage("Allowe Percentage 25");
+        }
+
+        if (algorithm.getNoOfSentences()>= 10.0 && algorithm.getNoOfSentences() < 15 ) {
+            this.setAllowePercentage("Allowe Percentage 50 & 25");
+        }
+        if (algorithm.getNoOfSentences() >= 15.0 && algorithm.getNoOfSentences()< 20 ) {
+            this.setAllowePercentage("Allowe Percentage 50 & 25 & 75");
+        }
+        if (algorithm.getNoOfSentences() >= 20.0) {
+            this.setAllowePercentage("Allowe Percentage 50 & 25 & 75 && 100");
+        }
+
+    }
+    
+    
+    public void checkNoOfSentencesWithPercentageSummarization(Algorithm algorithm) {
+        this.algorithm = algorithm;
         System.out.println("hai");
         System.out.println("key words count" + algorithm.getSentencesWithKeyWords().size());
 
@@ -43,6 +67,10 @@ public class Validator {
 
     }
 
+
+     
+    
+    
     /**
      * @return the allowePercentage
      */
