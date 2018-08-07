@@ -194,17 +194,18 @@ public class View extends javax.swing.JFrame {
         jTabbedPaneHead = new javax.swing.JTabbedPane();
         jTabbedPaneSub = new javax.swing.JTabbedPane();
         jPanelWelcome = new javax.swing.JPanel();
-        btnSummerize = new javax.swing.JButton();
+        btnGeneralSummerize = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaInputDocument = new javax.swing.JTextArea();
         cmbSelectPercentageLevel = new javax.swing.JComboBox<>();
-        btnFindKeyWord = new javax.swing.JButton();
+        btnKeyWordSummarize = new javax.swing.JButton();
         lblDetectedLanguage = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jSeparator14 = new javax.swing.JSeparator();
         txtKeyword = new javax.swing.JTextField();
         btnTest1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        cmbSelectOption = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtAreaOutputDocument = new javax.swing.JTextArea();
@@ -241,17 +242,17 @@ public class View extends javax.swing.JFrame {
         jPanelWelcome.setVerifyInputWhenFocusTarget(false);
         jPanelWelcome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/school-material (1).png"))); // NOI18N
-        btnSummerize.setBorder(null);
-        btnSummerize.setContentAreaFilled(false);
-        btnSummerize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
-        btnSummerize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/write.png"))); // NOI18N
-        btnSummerize.addActionListener(new java.awt.event.ActionListener() {
+        btnGeneralSummerize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/school-material (1).png"))); // NOI18N
+        btnGeneralSummerize.setBorder(null);
+        btnGeneralSummerize.setContentAreaFilled(false);
+        btnGeneralSummerize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
+        btnGeneralSummerize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/write.png"))); // NOI18N
+        btnGeneralSummerize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSummerizeActionPerformed(evt);
+                btnGeneralSummerizeActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(btnSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 340, 100, 70));
+        jPanelWelcome.add(btnGeneralSummerize, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 320, 100, 70));
 
         txtAreaInputDocument.setColumns(20);
         txtAreaInputDocument.setRows(5);
@@ -265,19 +266,19 @@ public class View extends javax.swing.JFrame {
                 cmbSelectPercentageLevelActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 340, 190, -1));
+        jPanelWelcome.add(cmbSelectPercentageLevel, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 410, 190, -1));
 
-        btnFindKeyWord.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword.png"))); // NOI18N
-        btnFindKeyWord.setBorder(null);
-        btnFindKeyWord.setContentAreaFilled(false);
-        btnFindKeyWord.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
-        btnFindKeyWord.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword Rollover.png"))); // NOI18N
-        btnFindKeyWord.addActionListener(new java.awt.event.ActionListener() {
+        btnKeyWordSummarize.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword.png"))); // NOI18N
+        btnKeyWordSummarize.setBorder(null);
+        btnKeyWordSummarize.setContentAreaFilled(false);
+        btnKeyWordSummarize.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/approval.png"))); // NOI18N
+        btnKeyWordSummarize.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/keyword Rollover.png"))); // NOI18N
+        btnKeyWordSummarize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFindKeyWordActionPerformed(evt);
+                btnKeyWordSummarizeActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(btnFindKeyWord, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 70, -1));
+        jPanelWelcome.add(btnKeyWordSummarize, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 70, -1));
 
         lblDetectedLanguage.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lblDetectedLanguage.setForeground(new java.awt.Color(204, 0, 0));
@@ -291,28 +292,13 @@ public class View extends javax.swing.JFrame {
 
         jSeparator14.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator14.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelWelcome.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 390, 130, 10));
+        jPanelWelcome.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 430, 130, 10));
 
         txtKeyword.setBackground(new java.awt.Color(32, 33, 35));
         txtKeyword.setFont(new java.awt.Font("Dialog", 0, 16)); // NOI18N
         txtKeyword.setForeground(new java.awt.Color(255, 255, 255));
         txtKeyword.setToolTipText("Enter Key word from your document");
         txtKeyword.setBorder(null);
-        txtKeyword.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                txtKeywordMousePressed(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                txtKeywordMouseReleased(evt);
-            }
-        });
-        txtKeyword.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtKeywordInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
-        });
         txtKeyword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtKeywordActionPerformed(evt);
@@ -323,7 +309,7 @@ public class View extends javax.swing.JFrame {
                 txtKeywordKeyTyped(evt);
             }
         });
-        jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, 130, -1));
+        jPanelWelcome.add(txtKeyword, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 410, 130, -1));
 
         btnTest1.setText("FinalDocument OK");
         btnTest1.addActionListener(new java.awt.event.ActionListener() {
@@ -333,13 +319,21 @@ public class View extends javax.swing.JFrame {
         });
         jPanelWelcome.add(btnTest1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, -1, -1));
 
-        jButton2.setText("Summarize Base On A Key Word");
+        jButton2.setText("Summarize ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 400, 230, -1));
+        jPanelWelcome.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 320, 230, -1));
+
+        cmbSelectOption.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Select Option to Proceed", "General Summerization", "Keyword based summarization" }));
+        cmbSelectOption.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSelectOptionActionPerformed(evt);
+            }
+        });
+        jPanelWelcome.add(cmbSelectOption, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, -1, -1));
 
         jTabbedPaneSub.addTab("                      Place Your Document Here                     ", jPanelWelcome);
 
@@ -439,7 +433,7 @@ public class View extends javax.swing.JFrame {
         switchScreens();
     }//GEN-LAST:event_jTabbedPaneHeadMouseClicked
 
-    private void btnSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSummerizeActionPerformed
+    private void btnGeneralSummerizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGeneralSummerizeActionPerformed
 
         if (!txtAreaInputDocument.getText().isEmpty()) {
             if (this.status.equals("Not Selected")) {
@@ -485,7 +479,7 @@ public class View extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please place a document to summarize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
 
-    }//GEN-LAST:event_btnSummerizeActionPerformed
+    }//GEN-LAST:event_btnGeneralSummerizeActionPerformed
 
     private void btnHowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHowActionPerformed
 
@@ -580,7 +574,7 @@ public class View extends javax.swing.JFrame {
 
                     if (validator.getAllowePercentage().equals("Not Allowe any Percentage")) {
                         if (cmbSelectPercentageLevel.getSelectedIndex() == 1 || cmbSelectPercentageLevel.getSelectedIndex() == 2 || cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
-                            JOptionPane.showMessageDialog(null, "Too small To Summarize Basis On Given Keyword  Try Again With a Differnt Key Word  ", " ITS ", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Too small To Summarize  ", " ITS ", JOptionPane.ERROR_MESSAGE);
 
                         } else {
                             calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
@@ -604,7 +598,7 @@ public class View extends javax.swing.JFrame {
 
                     if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25")) {
                         if (cmbSelectPercentageLevel.getSelectedIndex() == 3 || cmbSelectPercentageLevel.getSelectedIndex() == 4) {
-                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given document", " ITS ", JOptionPane.ERROR_MESSAGE);
 
                         } else {
                             calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
@@ -616,7 +610,7 @@ public class View extends javax.swing.JFrame {
                     if (validator.getAllowePercentage().equals("Allowe Percentage 50 & 25 & 75")) {
                         System.out.println("Come In To The Methode");
                         if (cmbSelectPercentageLevel.getSelectedIndex() == 4) {
-                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given keword", " ITS ", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "This percentage can not be apply to summarize a basis on given document", " ITS ", JOptionPane.ERROR_MESSAGE);
 
                         } else {
                             calculatePercentageLevel(Integer.parseInt(cmbSelectPercentageLevel.getSelectedItem().toString()));
@@ -645,41 +639,32 @@ public class View extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cmbSelectPercentageLevelActionPerformed
 
-    private void btnFindKeyWordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFindKeyWordActionPerformed
+    private void btnKeyWordSummarizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeyWordSummarizeActionPerformed
         if (!txtKeyword.getText().isEmpty()) {
             int yesNo = JOptionPane.showConfirmDialog(null, "Do you really want to Select This Key Word?", "Select Key Word", JOptionPane.YES_NO_OPTION);
 
-            highlight(txtAreaInputDocument, txtKeyword.getText());
             if (yesNo == 0) {
                 this.status = "true";
                 cmbSelectPercentageLevel.setSelectedIndex(0);
 
                 JOptionPane.showMessageDialog(null, "Key Word Confirmed", " ITS ", JOptionPane.DEFAULT_OPTION);
+
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please Enter Keyword From text to Summerize", " ITS ", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btnFindKeyWordActionPerformed
-
-    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
-
-    }//GEN-LAST:event_txtKeywordActionPerformed
+    }//GEN-LAST:event_btnKeyWordSummarizeActionPerformed
 
     private void txtKeywordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtKeywordKeyTyped
+        if (!txtKeyword.getText().isEmpty()) {
+            highlight(txtAreaInputDocument, txtKeyword.getText());
+        }
+
     }//GEN-LAST:event_txtKeywordKeyTyped
-
-    private void txtKeywordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKeywordMousePressed
-    }//GEN-LAST:event_txtKeywordMousePressed
-
-    private void txtKeywordMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtKeywordMouseReleased
-     }//GEN-LAST:event_txtKeywordMouseReleased
-
-    private void txtKeywordInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtKeywordInputMethodTextChanged
-     }//GEN-LAST:event_txtKeywordInputMethodTextChanged
 
     private void btnTest1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTest1ActionPerformed
         GoogleTranslator.setContextDocument(txtAreaInputDocument.getText());
-        GoogleTranslator.setTargetlanguage("ga");
+        GoogleTranslator.setTargetlanguage("en");
         GoogleTranslator.TranslateText();
         lblDetectedLanguage.setText(GoogleTranslator.getDetectedLanguage());
 
@@ -692,6 +677,36 @@ public class View extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Summarize On a Percentage Level Confirmed", " ITS ", JOptionPane.DEFAULT_OPTION);
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtKeywordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKeywordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtKeywordActionPerformed
+
+    private void cmbSelectOptionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSelectOptionActionPerformed
+        if (cmbSelectOption.getSelectedIndex() == 0) {
+            txtKeyword.setVisible(false);
+            jSeparator14.setVisible(false);
+            btnKeyWordSummarize.setVisible(false);
+            cmbSelectPercentageLevel.setVisible(false);
+            btnGeneralSummerize.setVisible(false);
+        }
+        //general Summerization
+        if (cmbSelectOption.getSelectedIndex() == 1) {
+            cmbSelectPercentageLevel.setVisible(true);
+            btnGeneralSummerize.setVisible(true);
+            txtKeyword.setVisible(false);
+            jSeparator14.setVisible(false);
+            btnKeyWordSummarize.setVisible(false);
+        }
+        //keyword Summerization
+        if (cmbSelectOption.getSelectedIndex() == 2) {
+            txtKeyword.setVisible(true);
+            jSeparator14.setVisible(true);
+            cmbSelectPercentageLevel.setVisible(true);
+            btnKeyWordSummarize.setVisible(true);
+            btnGeneralSummerize.setVisible(false);
+        }
+    }//GEN-LAST:event_cmbSelectOptionActionPerformed
 
     public static void main(String args[]) {
 
@@ -720,10 +735,11 @@ public class View extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnFindKeyWord;
+    private javax.swing.JButton btnGeneralSummerize;
     private javax.swing.JButton btnHow;
-    private javax.swing.JButton btnSummerize;
+    private javax.swing.JButton btnKeyWordSummarize;
     private javax.swing.JButton btnTest1;
+    private javax.swing.JComboBox<String> cmbSelectOption;
     private javax.swing.JComboBox<String> cmbSelectPercentageLevel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
