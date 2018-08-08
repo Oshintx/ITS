@@ -490,17 +490,17 @@
                 <Component class="javax.swing.JButton" name="btnHow">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Images/question32.png"/>
+                      <Image iconType="3" name="/Images/pdf32.png"/>
                     </Property>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                       <Border info="null"/>
                     </Property>
                     <Property name="contentAreaFilled" type="boolean" value="false"/>
                     <Property name="pressedIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Images/questionPressed.png"/>
+                      <Image iconType="3" name="/Images/pdfPressed.png"/>
                     </Property>
                     <Property name="rolloverIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/Images/questionRollover.png"/>
+                      <Image iconType="3" name="/Images/pdfRollover.png"/>
                     </Property>
                   </Properties>
                   <Events>

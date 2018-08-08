@@ -389,11 +389,11 @@ public class View extends javax.swing.JFrame {
         lblNoOfSentencesInContext.setText("..");
         jPanel1.add(lblNoOfSentencesInContext, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 120, -1));
 
-        btnHow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/question32.png"))); // NOI18N
+        btnHow.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pdf32.png"))); // NOI18N
         btnHow.setBorder(null);
         btnHow.setContentAreaFilled(false);
-        btnHow.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionPressed.png"))); // NOI18N
-        btnHow.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/questionRollover.png"))); // NOI18N
+        btnHow.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pdfPressed.png"))); // NOI18N
+        btnHow.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/pdfRollover.png"))); // NOI18N
         btnHow.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHowActionPerformed(evt);

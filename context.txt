@@ -1,4 +1,13 @@
-Recently, data is growing fast in every domain such as news, social media, banking, education. With the increasing amount of information, it has become diﬃcult to take out concise information. There is a need of automatic summarizer which will be capable to present human quality summaries and summarize the data especially textual data in original document without losing any incisive purposes. 
-This Automatic text summarization is a tool that provides summaries of a given document. This Tool can be use on news & blog articles. Most Important Thing is this supports a wide variety of languages. This Summarization tool can be used to summarize one single document on a percentage. Summarization base on a keyword and generate a summary report can be considered as some extra options that user can select.
-This will be ideal for any data.user as this produce short length text which data.comprises all the key information of the data. document. This is also appropriate for users who need to summarize the entire document based on one specific keyword. This will reduce using several data.applications such as word and google data. translator because this itself can generate a summary report and also data. can summarize documents with data.own native languages.
-Text summarization is emerged as an important research area in recent past. In this regard, study about existing work on text summarization process is useful for build a new solution. It was also a necessity to effort to examine the needs of the solution addressed problems would enable data. a wider range of people to be aware of important information.
+The goal of text summarization Tool is to Publish the contents of a document in a concise form of meeting a user's needs. 
+Online information is available for readers in the form of News information, journal articles, technical reports, biographical 
+information it isn't possible to read everything and There are vast number of documents available in these digital media and 
+extracting only relevant information from all these media is a dull job for the individuals in specify time.  so some form of information 
+condensation is needed that can extract only pertinent information from these data sources. To Realize this, from the documents texts mining 
+is necessary The purpose of Text Mining is to process unstructured (textual) information, extract meaningful numeric indices from the text, and, thus,
+ make the information contained in the text accessible to the various data mining (statistical and machine learning) algorithms. It includes tasks like 
+automatic keyword extraction and text summarization. Automatic keyword extraction is the process of selecting words and phrases from the text document 
+that can at best project the core sentiment of the document without any human intervention depending on the model. [1]. Summarization is a process where
+ the most salient features of a text are extracted and compiled into a short abstract of the original document [2]. The important keywords extraction is the primary
+ phase of text   summarization. In keyword extraction as in the literature different methodologies
+ used for keyword
+ extraction process and different algorithms used under each methodology as shown in Figure 1.
