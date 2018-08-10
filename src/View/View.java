@@ -73,7 +73,8 @@ public class View extends javax.swing.JFrame {
 
     public void calculatePercentageLevel(int currentPercentageLevel) {
 
-        this.calculatedPercentageLevel = currentPercentageLevel / 5;
+      //  this.calculatedPercentageLevel = currentPercentageLevel / 5;
+       this.calculatedPercentageLevel = currentPercentageLevel / 10;
         System.out.println("calculated Percentage Level : " + this.calculatedPercentageLevel);
 
     }
