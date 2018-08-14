@@ -157,6 +157,7 @@ public class Algorithm {
      */
     public double noOfCommonWords(Sentence str1, Sentence str2) {
         double commonCount = 0;
+        System.out.println("first time started");
 
         for (String str1Word : str1.getValue().split("\\s+")) {//"\\s+" is a regex this will split the string in to string of array with seperator as a one space or multiple spaces.  \ is a regex for one or more spaces 
 
@@ -164,9 +165,15 @@ public class Algorithm {
 
                 if (str1Word.compareToIgnoreCase(str2Word) == 0) {//if str2Word=-int str2Word is grater than to  str1Word and if str2Word=0 str2Wordis equal to str1Word and if str2Word= +int str2Word is less than the str1Word
                     commonCount++;
+                    System.out.println("str1Word : " + str1Word);
+                    System.out.println("str2Word : " + str2Word);
+                    System.out.println("common count : " + commonCount);
+
+                } else {
                 }
             }
         }
+        System.out.println("final common count : " + commonCount);
 
         return commonCount;
     }
@@ -175,6 +182,7 @@ public class Algorithm {
      * Intersection Matrix base on a percentage
      */
     public void createIntersectionMatrix() {
+        System.out.println("no of sentences " + getNoOfSentences());
         setIntersectionMatrix(new double[getNoOfSentences()][getNoOfSentences()]);//arr[i][j]
         for (int i = 0; i < getNoOfSentences(); i++) {
             for (int j = 0; j < getNoOfSentences(); j++) {
@@ -257,17 +265,25 @@ public class Algorithm {
      */
     public void createDictionary() {
         for (int i = 0; i < getNoOfSentences(); i++) {
-            double score = 0;
+            double score = 0.0;
+             if (sentences.get(i).getNumber()<=getNoOfSentences()/2 ) {
+                 
+                 score += 1.0/sentences.get(i).getNumber();
+                }
             for (int j = 0; j < getNoOfSentences(); j++) {
                 score += getIntersectionMatrix()[i][j];//score=intersectionMatrix[i][j]+score;
+               
 
             }
-
+            System.out.println("score"+score);
             getDictionary().put(getSentences().get(i), score);
             sentences.get(i).setScore(score);
         }
     }
 
+    
+   
+    
     /**
      * Create Dictionary base on KeyWord
      */
@@ -295,7 +311,7 @@ public class Algorithm {
             Collections.sort(getParagraphs().get(j).getSentences(), new SentenceComparatorOnScore());//sort here according to(descending order) the score of a sentence(SentenceComparatorOnScore has a compare method to compare and collection has sort method to sort this)
             for (int i = 1; i <= primary_set; i++) {//from a one group select 2 sentences here i assign i to 1 then when there is sentences count belong to 5 there will not be any out put.
                 getContentSummary().add(getParagraphs().get(j).getSentences().get(i));
-       
+
                 System.out.println("ok");
             }
         }
